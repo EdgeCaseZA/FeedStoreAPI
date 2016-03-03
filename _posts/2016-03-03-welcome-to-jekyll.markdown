@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "New home for Fusion Feed Store API"
+title:  "New home for Fusion Feed Store API Documentation"
 date:   2016-03-03 14:18:10 +0200
 ---
 We are in the process of updating our API documentation and making it more readily available. Some benefits you'll receive are:
