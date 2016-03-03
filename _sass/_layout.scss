@@ -24,6 +24,16 @@
     }
 }
 
+.watch {
+    margin-top: 1.2em;
+    margin-left: 0.5em;
+    display: inline-block;
+
+    a {
+        opacity: 0;
+    }
+}
+
 .site-nav {
     float: right;
     line-height: 56px;

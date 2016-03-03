@@ -7,12 +7,12 @@
 
 # Site settings
 title: FeedStore API
-email: jaco@edgecase.co.za
+email: devops@edgecase.co.za
 description: > # this means to ignore newlines until "baseurl:"
   API Documentation for the Fusion FeedStore
 baseurl: "/FeedStoreAPI" # the subpath of your site, e.g. /blog
-url: "http://edgecasez.github.io" # the base hostname & protocol for your site
-twitter_username: 
+url: "http://edgecaseza.github.io" # the base hostname & protocol for your site
+twitter_username:
 github_username:  edgecaseza
 
 # Build settings
