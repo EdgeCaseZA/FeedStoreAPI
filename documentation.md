@@ -26,6 +26,14 @@ permalink: /docs/
 	- [2.6 Creating the Security Token on Other Platforms](#creating-the-security-token-on-other-platforms)
 	- [2.7 Building the final URL](#building-the-final-url)
 	- [2.8 Verifying a Security Token](#verifying-a-security-token)
+- [3. Client Types](#client-types)
+	- [3.1 Client Web Sites](#client-web-sites)
+		- [3.1.1 View Listing Endpoint](#view-listing-endpoint)
+	- [3.2 Portals](#portals)
+- [4. API Overview](#api-overview)
+	- [4.1 Overview of the Synchronisation API](#overview-of-the-synchronisation-api)
+	- [4.2 Overview of the Enquiries API](#overview-of-the-enquiries-api)
+	- [4.3 Conventions Used in the Web Method Specification](#conventions-used-in-the-web-method-specification)
 
 <!-- /TOC -->
 
@@ -124,15 +132,11 @@ Every Web Method call should have the security token parameters appended to it.
 
 The following gives an example of a security token encoded in URL format:
 
-```
-&clientId=5&timeStamp=2011-12-03-22-05&salt=23872387232&digest=623fa5af23793
-```
+    &clientId=5&timeStamp=2011-12-03-22-05&salt=23872387232&digest=623fa5af23793
 
 Appended to the base URL
 
-```
-http://staging-feedstore.fusionagency.net/v1/sync/RequestSnapshot/?clientId=5&timeStamp=2011-12-03-22-05&salt=23872387232&digest=623fa5af23793
-```
+    http://staging-feedstore.fusionagency.net/v1/sync/RequestSnapshot/?clientId=5&timeStamp=2011-12-03-22-05&salt=23872387232&digest=623fa5af23793
 
 _Please be aware that a GET request to a method that expects a POST will return 404 even though the endpoint exists._
 
@@ -145,3 +149,72 @@ Verifying a token is a simple process:
 - Generate a digest using the client’s ClientID and Password together with the TimeStamp and Salt supplied in the URL call (as described in the section above on Creating a Security Token).
 - Compare the generated digest with the digest supplied in the URL call.
 - If the digests match, the token is valid.
+
+## 3. Client Types
+
+### 3.1 Client Web Sites
+
+Each Fusion client has the option of using a Fusion Front-end web-site based on a standard Fusion template, or building a custom web site.
+
+A custom web site may be linked to a single Fusion Office, or it may aggregate a number of Offices together.
+
+#### 3.1.1 View Listing Endpoint
+
+Fusion exposes a link inside its user interface to navigate directly to a listing’s details page on the client’s web site.  Each custom web site will need to supply Fusion with a fixed URL that will redirect to the listings page.  The URL should be:
+
+    http://some.web.site/some/path?clientId=12&listingId=456
+
+The custom web site developers must implement this path, and supply the URL part:
+
+
+The custom web site developers must implement this path, and supply the URL part:
+
+    http://some.web.site/some/path
+
+Fusion will append the parameter part:
+
+    ?clientId=12&listingId=456
+
+The parameters are defined as:
+
+- The `clientId` will be the same clientId given to the custom web site and used as a handle for accessing the Sync Store.
+- The `listingId` is the Fusion listingId as returned in the `<Listing>` element.
+
+### 3.2 Portals
+
+A portal client aggregates listings from a number of different Agencies and Offices.
+
+## 4. API Overview
+
+### 4.1 Overview of the Synchronisation API
+
+The Fusion Sync Store exposes an interface that allows a client to maintain a copy of the Fusion database, getting updates in an asynchronous, event-driven, always-up-to-date manner that makes optimal use of bandwidth.
+
+The system is built around a stream of Create, Update and Delete change events for which the client can poll.
+
+The Sync Store also supports a notification system.  The Sync Store will call the client when new changes are available.  The client can then poll the Sync Store to retrieve these changes.  In this way, the simple architecture of a polled system is converted into an efficient asynchronous eventing system.
+
+Since the Sync Store works on a stream of events, it makes the assumption that its database is consistent with the client’s database **before any given event is processed**.  In an ideal world, this will always be the case.  Unfortunately, we do not live in an ideal world, and various issues can cause the two databases to get out of sync: network failures, database corruptions, programming bugs, etc.
+
+The Sync Store implements a snapshot mechanism which allows it to resend the state of its various objects to the client to ensure a common baseline state is achieved.  This snapshot system is also used to populate an empty database.  The client may request a snapshot, and the Sync Store itself may issue a snapshot.  For this latter reason, all clients MUST implement their side of the snapshot protocol.
+
+The snapshot send is a heavy-weight process that resends all objects in the system.  This could be a large dataset for clients with access to a vast number of listings.  In some cases, the client may have a recent “last known good state” of its database (perhaps from a backup, or some snapshot state).  In cases like these, the client can restore its database state to its last known good state and then request the Sync Store to “resend” all change events from the restored date-time to the present time.  For large databases, this will be a much faster synchronisation mechanism than a full database restore via a snapshot.
+
+The Sync Store implements a method that provides direct access to a single listing.  The client can make a request to receive the current state of a listing (or a deleted state if the listing does not exist).  This can be used as a super lightweight means of synchronising a few listings that are known to have become corrupted.
+
+The Sync Store runs a housekeeping background process at a pre-determined time in the early morning.  While the housekeeping process is running, a number of the web method calls will fail with a Housekeeping In Progress exception.  If that happens, the client should back off and try again later.
+
+### 4.2 Overview of the Enquiries API
+
+The Fusion Sync Store exposes an interface that allows any client to send an “enquiry” generated by a third party user of the client’s system, into the Fusion system.  When received, the Fusion system will route the enquiry to the appropriate agency office for processing.
+
+Each enquiry must include the user’s name, email address and message body text.  An enquiry may also optionally include the user’s mobile telephone number and a summary subject line.
+
+If the enquiry relates to a specific listing, either the Listing ID or the Fusion Reference should be included in the enquiry.
+
+If the enquiry is of a general nature (i.e. the enquiry is not related to a specific listing), the target Office ID should be included in the enquiry.
+
+### 4.3 Conventions Used in the Web Method Specification
+
+- The `|` symbol defines the options that the relevant attribute can take on.  Only one of the options is allowed per attribute.
+- In the API Reference section, when an attribute is stated to be _**optional**_ it means that either the attribute will be missing, _**or**_ the attribute value will be an empty string.
