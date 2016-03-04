@@ -8,7 +8,7 @@ permalink: /docs/
 
 **TABLE OF CONTENTS**
 
-<!-- TOC depthFrom:2 depthTo:4 withLinks:1 updateOnSave:0 orderedList:0 -->
+<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:0 orderedList:0 -->
 
 - [1. Introduction](#introduction)
 	- [1.1 Overview](#overview)
@@ -34,6 +34,9 @@ permalink: /docs/
 	- [4.1 Overview of the Synchronisation API](#overview-of-the-synchronisation-api)
 	- [4.2 Overview of the Enquiries API](#overview-of-the-enquiries-api)
 	- [4.3 Conventions Used in the Web Method Specification](#conventions-used-in-the-web-method-specification)
+- [5. Web Methods: Synchronisation](#web-methods-synchronisation)
+	- [5.1 Request Snapshot](#request-snapshot)
+		- [5.1.1 Overview](#overview)
 
 <!-- /TOC -->
 
@@ -218,3 +221,15 @@ If the enquiry is of a general nature (i.e. the enquiry is not related to a spec
 
 - The `|` symbol defines the options that the relevant attribute can take on.  Only one of the options is allowed per attribute.
 - In the API Reference section, when an attribute is stated to be _**optional**_ it means that either the attribute will be missing, _**or**_ the attribute value will be an empty string.
+
+## 5. Web Methods: Synchronisation
+
+### 5.1 Request Snapshot
+
+#### 5.1.1 Overview
+
+- A client calls this to initiate a Snapshot resend of **all object types.**
+- The next call to the `GetChanges` method will result in the current change queue being paused, while a full Snapshot stream of all object types is sent.  After the snapshot has been sent, any queued changes will be sent.
+- If this is called while another Snapshot or Rollback is in progress, that Snapshot/Rollback will be aborted and this new Snapshot will start immediately.
+- Calling this method will raise a `NotifyChangesAvailable` event.  This allows the client code to be written asynchronously and call `GetChanges` only on receipt of the Notify event.
+- For further details on Snapshot, see the `GetChanges` method.
