@@ -8,24 +8,24 @@ permalink: /docs/
 
 **TABLE OF CONTENTS**
 
-<!-- TOC depthFrom:2 depthTo:4 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC depthFrom:2 depthTo:4 withLinks:1 updateOnSave:0 orderedList:0 -->
 
-- [1. Introduction](#1-introduction)
-	- [1.1 Overview](#11-overview)
-	- [1.2 Architectural Overview](#12-architectural-overview)
-	- [1.3 API Versioning](#13-api-versioning)
-		- [1.3.1 Current Version](#131-current-version)
-		- [1.3.2 API Evolution - Non Breaking Changes](#132-api-evolution-non-breaking-changes)
-	- [1.3.3 API Evolution - Breaking Changes](#133-api-evolution-breaking-changes)
-- [2. Authentication](#2-authentication)
-	- [2.1 Overview](#21-overview)
-	- [2.2 Setup](#22-setup)
-	- [2.3 URLs](#23-urls)
-	- [2.4 The Security Token](#24-the-security-token)
-	- [2.5 Creating the Security Token in .NET](#25-creating-the-security-token-in-net)
-	- [2.6 Creating the Security Token on Other Platforms](#26-creating-the-security-token-on-other-platforms)
-	- [2.7 Building the final URL](#27-building-the-final-url)
-	- [2.8 Verifying a Security Token](#28-verifying-a-security-token)
+- [1. Introduction](#introduction)
+	- [1.1 Overview](#overview)
+	- [1.2 Architectural Overview](#architectural-overview)
+	- [1.3 API Versioning](#api-versioning)
+		- [1.3.1 Current Version](#current-version)
+		- [1.3.2 API Evolution - Non Breaking Changes](#api-evolution-non-breaking-changes)
+	- [1.3.3 API Evolution - Breaking Changes](#api-evolution-breaking-changes)
+- [2. Authentication](#authentication)
+	- [2.1 Overview](#overview)
+	- [2.2 Setup](#setup)
+	- [2.3 URLs](#urls)
+	- [2.4 The Security Token](#the-security-token)
+	- [2.5 Creating the Security Token in .NET](#creating-the-security-token-in-net)
+	- [2.6 Creating the Security Token on Other Platforms](#creating-the-security-token-on-other-platforms)
+	- [2.7 Building the final URL](#building-the-final-url)
+	- [2.8 Verifying a Security Token](#verifying-a-security-token)
 
 <!-- /TOC -->
 
