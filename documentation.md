@@ -8,14 +8,12 @@ permalink: /docs/
 
 **TABLE OF CONTENTS**
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:0 orderedList:0 -->
+<!-- TOC depthFrom:1 depthTo:3 withLinks:1 updateOnSave:0 orderedList:0 -->
 
 - [1. Introduction](#1-introduction)
 	- [1.1 Overview](#11-overview)
 	- [1.2 Architectural Overview](#12-architectural-overview)
 	- [1.3 API Versioning](#13-api-versioning)
-		- [1.3.1 Current Version](#131-current-version)
-		- [1.3.2 API Evolution - Non Breaking Changes](#132-api-evolution-non-breaking-changes)
 	- [1.3.3 API Evolution - Breaking Changes](#133-api-evolution-breaking-changes)
 - [2. Authentication](#2-authentication)
 	- [2.1 Overview](#21-overview)
@@ -28,7 +26,6 @@ permalink: /docs/
 	- [2.8 Verifying a Security Token](#28-verifying-a-security-token)
 - [3. Client Types](#3-client-types)
 	- [3.1 Client Web Sites](#31-client-web-sites)
-		- [3.1.1 View Listing Endpoint](#311-view-listing-endpoint)
 	- [3.2 Portals](#32-portals)
 - [4. API Overview](#4-api-overview)
 	- [4.1 Overview of the Synchronisation API](#41-overview-of-the-synchronisation-api)
@@ -36,17 +33,22 @@ permalink: /docs/
 	- [4.3 Conventions Used in the Web Method Specification](#43-conventions-used-in-the-web-method-specification)
 - [5. Web Methods: Synchronisation](#5-web-methods-synchronisation)
 	- [5.1 Request Snapshot](#51-request-snapshot)
-		- [5.1.1 Overview](#511-overview)
+	- [5.2 Request Rollback](#52-request-rollback)
+	- [5.3 Request Listing](#53-request-listing)
+	- [5.4 Get Changes](#54-get-changes)
+	- [5.5 Notify Changes Available](#55-notify-changes-available)
+- [6 Web Methods: Enquiries](#6-web-methods-enquiries)
+	- [6.1 Send Enquiry](#61-send-enquiry)
 
 <!-- /TOC -->
 
-## 1. Introduction
+## 1. Introduction <a id="1-introduction"></a>
 
-### 1.1 Overview
+### 1.1 Overview <a id="11-overview"></a>
 
 This document describes the API for accessing the Fusion Sync Store.
 
-### 1.2 Architectural Overview
+### 1.2 Architectural Overview <a id="12-architectural-overview"></a>
 
 The Fusion Sync Store exposes an HTTP endpoint.
 
@@ -58,7 +60,7 @@ Every client is linked to a collection of Fusion Offices.
 The client calls the Sync Store API to incrementally retrieve create, update and
 delete change events for all offices, agents, developments, listings and suburbs.
 
-### 1.3 API Versioning
+### 1.3 API Versioning <a id="13-api-versioning"></a>
 
 #### 1.3.1 Current Version
 
@@ -94,26 +96,26 @@ delete change events for all offices, agents, developments, listings and suburbs
 	be allocated a period of time to transition to the new protocol, before the
 	old version is discontinued.
 
-## 2. Authentication
+## 2. Authentication <a id="2-authentication"></a>
 
-### 2.1 Overview
+### 2.1 Overview <a id="21-overview"></a>
 
 Every web method takes a mandatory SecurityToken as a parameter.  Each time a
 client calls a method, it needs to re-create this security token.
 
-### 2.2 Setup
+### 2.2 Setup <a id="22-setup"></a>
 
 Every client must request a ClientID and Password from our support team.
 The Password must be kept secure at all times.
 
-### 2.3 URLs
+### 2.3 URLs <a id="23-urls"></a>
 
 - Testing: http://staging-feedstore.fusionagency.net/v1/sync/
 - Production: http://za-feedstore.fusionagency.net/v1/sync/
 
 All development and testing is to take place against the staging URL.
 
-### 2.4 The Security Token
+### 2.4 The Security Token <a id="24-the-security-token"></a>
 
 The SecurityToken consists of these 4 url parameters:
 
@@ -124,13 +126,13 @@ The SecurityToken consists of these 4 url parameters:
 | `Salt`      | a 64-bit number randomly generated on the client’s PC.                                                           |
 | `Digest`    | a Base64 conversion of an SHA1 computed hash of the password and the above data.                                 |
 
-### 2.5 Creating the Security Token in .NET
+### 2.5 Creating the Security Token in .NET <a id="25-creating-the-security-token-in-net"></a>
 
 Fusion has .NET C# source code that will generate a SecurityToken and export it
 in a format ready to be appended to an URL.  Contact Fusion should you wish to
 make use of this source code.
 
-### 2.6 Creating the Security Token on Other Platforms
+### 2.6 Creating the Security Token on Other Platforms <a id="26-creating-the-security-token-on-other-platforms"></a>
 
 The following rules describe how to generate a Security Token from first
 principles:
@@ -152,7 +154,7 @@ The Digest is calculated using the following **pseudo-code** algorithm:
 	Digest = Base64Encoder( Hash )
 	UrlFriendlyDigest = UrlEncode( Digest )
 
-### 2.7 Building the final URL
+### 2.7 Building the final URL <a id="27-building-the-final-url"></a>
 
 Every Web Method call should have the security token parameters appended to it.
 
@@ -167,7 +169,7 @@ Appended to the base URL
 _Please be aware that a GET request to a method that expects a POST will return
 404 even though the endpoint exists._
 
-### 2.8 Verifying a Security Token
+### 2.8 Verifying a Security Token <a id="28-verifying-a-security-token"></a>
 
 The NotifyChangesAvailable web method call (see API section later) supplies a
 Security Token on the URL.  The client needs to verify that the security token
@@ -181,9 +183,9 @@ Verifying a token is a simple process:
 - Compare the generated digest with the digest supplied in the URL call.
 - If the digests match, the token is valid.
 
-## 3. Client Types
+## 3. Client Types <a id="3-client-types"></a>
 
-### 3.1 Client Web Sites
+### 3.1 Client Web Sites <a id="31-client-web-sites"></a>
 
 Each Fusion client has the option of using a Fusion Front-end web-site based on
 a standard Fusion template, or building a custom web site.
@@ -217,13 +219,13 @@ The parameters are defined as:
 as a handle for accessing the Sync Store.
 - The `listingId` is the Fusion listingId as returned in the `<Listing>` element.
 
-### 3.2 Portals
+### 3.2 Portals <a id="32-portals"></a>
 
 A portal client aggregates listings from a number of different Agencies and Offices.
 
-## 4. API Overview
+## 4. API Overview <a id="4-api-overview"></a>
 
-### 4.1 Overview of the Synchronisation API
+### 4.1 Overview of the Synchronisation API <a id="41-overview-of-the-synchronisation-api"></a>
 
 The Fusion Sync Store exposes an interface that allows a client to maintain a
 copy of the Fusion database, getting updates in an asynchronous, event-driven,
@@ -270,7 +272,7 @@ in the early morning.  While the housekeeping process is running, a number of
 the web method calls will fail with a Housekeeping In Progress exception.  If
 that happens, the client should back off and try again later.
 
-### 4.2 Overview of the Enquiries API
+### 4.2 Overview of the Enquiries API <a id="42-overview-of-the-enquiries-api"></a>
 
 The Fusion Sync Store exposes an interface that allows any client to send an
 “enquiry” generated by a third party user of the client’s system, into the
@@ -287,7 +289,7 @@ Fusion Reference should be included in the enquiry.
 If the enquiry is of a general nature (i.e. the enquiry is not related to a
 specific listing), the target Office ID should be included in the enquiry.
 
-### 4.3 Conventions Used in the Web Method Specification
+### 4.3 Conventions Used in the Web Method Specification <a id="43-conventions-used-in-the-web-method-specification"></a>
 
 - The `|` symbol defines the options that the relevant attribute can take on.  
   Only one of the options is allowed per attribute.
@@ -295,9 +297,9 @@ specific listing), the target Office ID should be included in the enquiry.
   it means that either the attribute will be missing, _**or**_ the attribute value
   will be an empty string.
 
-## 5. Web Methods: Synchronisation
+## 5. Web Methods: Synchronisation <a id="5-web-methods:-synchronisation"></a>
 
-### 5.1 Request Snapshot
+### 5.1 Request Snapshot <a id="51-request-snapshot"></a>
 
 #### 5.1.1 Overview
 
@@ -365,7 +367,7 @@ The following common exceptions may occur (see Appendix B for details):
 - Internal Error
 - Service Offline
 
-### 5.2 Request Rollback
+### 5.2 Request Rollback <a id="52-request-rollback"></a>
 
 #### 5.2.1 Overview
 
@@ -469,7 +471,7 @@ The following common exceptions may occur (see Appendix B for details):
 	- Internal Error
 	- Service Offline
 
-### 5.3 Request Listing
+### 5.3 Request Listing <a id="53-request-listing"></a>
 
 #### 5.3.1 Overview
 
@@ -542,7 +544,7 @@ The following common exceptions may occur (see Appendix B for details):
 - Internal Error
 - Service Offline
 
-### 5.4 Get Changes
+### 5.4 Get Changes <a id="54-get-changes"></a>
 
 #### 5.4.1 Overview
 
@@ -775,7 +777,7 @@ See the `BeginSnapshot` section above for details on this element.
 	- Internal Error
 	- Service Offline 
 
-### 5.5 Notify Changes Available
+### 5.5 Notify Changes Available <a id="55-notify-changes-available"></a>
 
 #### 5.5.1 Overview
 
@@ -838,9 +840,9 @@ See the `BeginSnapshot` section above for details on this element.
 
 The client should simply return an empty `<RequestCompleted>` XML element.
 
-## 6 Web Methods: Enquiries
+## 6 Web Methods: Enquiries <a id="6-web-methods:-enquiries"></a>
 
-### 6.1 Send Enquiry
+### 6.1 Send Enquiry <a id="61-send-enquiry"></a>
 
 #### 6.1.1 Overview
 
