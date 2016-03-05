@@ -318,7 +318,7 @@ specific listing), the target Office ID should be included in the enquiry.
 > : `RequestSnapshot`
 >
 > HTTP Verb
-> : POST
+> : `POST`
 >
 > | Parameters              | Type            |           |
 > |:------------------------|:----------------|:----------|
@@ -395,7 +395,7 @@ The following common exceptions may occur (see Appendix B for details):
 > : `RequestRollback`
 >
 > HTTP Verb
-> : POST
+> : `POST`
 >
 > | Parameters              | Type            |           |
 > |:------------------------|:----------------|:----------|
@@ -492,7 +492,7 @@ The following common exceptions may occur (see Appendix B for details):
 > : `RequestListing`
 >
 > HTTP Verb
-> : POST
+> : `POST`
 >
 > | Parameters              | Type            |           |
 > |:------------------------|:----------------|:----------|
@@ -573,7 +573,7 @@ The following common exceptions may occur (see Appendix B for details):
 > : `GetChanges`
 >
 > HTTP Verb
-> : POST
+> : `POST`
 >
 > | Parameters            | Type            |           |
 > |:----------------------|:----------------|:----------|
@@ -774,3 +774,217 @@ See the `BeginSnapshot` section above for details on this element.
 	- Security Token Expired
 	- Internal Error
 	- Service Offline 
+
+### 5.5 Notify Changes Available
+
+#### 5.5.1 Overview
+
+- This is an OUTGOING event from the Sync Store to an endpoint supplied by the
+  client.
+- The Sync Store will invoke this web method whenever new events are available
+  in the Changes queue, ready to be retrieved by the client.
+- The client must complete processing of this call within 1 minute.  If the
+  Sync Store does not receive a response within this time period, the
+	notification call will be assumed to have failed.
+- If this call fails for any reason, the Sync Store will continue to invoke it
+  every minute for the next 10 mins, then every 10 mins for the next hour,
+	then every hour thereafter.
+- **NOTE**: The client should NOT invoke `GetChanges` from within the context of
+  this call, since this could cause the notification method to timeout.
+- This call will be rate-limited to a max rate of 1 call every 10 seconds.
+
+#### 5.5.2 Web Method Specification
+
+> Name
+> : `NotifyChangesAvailable`
+>
+> HTTP Verb
+> : `POST`
+>
+> | Parameters            | Type            |           |
+> |:----------------------|:----------------|:----------|
+> | (`securityTokenParams`) | (SecurityToken) | Mandatory |
+> | `clientId`              | Int             | Mandatory |
+>
+>
+> Returns
+> : Xml string (see below)
+>
+> Example
+> : `POST` to `http://client-host/client-endpoint`
+>
+> **Notes**
+> : This method is invoked on a CLIENT ENDPOINT and NOT on the SYNC STORE WEB API ENDPOINT.
+
+#### 5.5.3 Parameters
+
+##### 5.5.3.1 clientId
+
+- This parameter will always be present.
+- It will match the Client ID as supplied to the client.
+
+##### 5.5.3.2 (securityTokenParams)
+
+- These parameters will always be present.
+- The client will need to verify the Token (see the Authentication section for details).
+
+#### 5.5.4 Returns on Success
+
+##### 5.5.4.1 An Example
+
+	<RequestCompleted/>
+
+##### 5.5.4.2 Root Node
+
+The client should simply return an empty `<RequestCompleted>` XML element.
+
+## 6 Web Methods: Enquiries
+
+### 6.1 Send Enquiry
+
+#### 6.1.1 Overview
+
+- The client calls this method to send an Enquiry to the Fusion system.
+- This call is made by the client on behalf of a human end-user (the “lead”).
+
+#### 6.1.2 Web Method Specification
+
+> Name
+> : `SendEnquiry`
+>
+> HTTP Verb
+> : `POST`
+>
+> | Parameters              | Type               |                                                       |
+> |:------------------------|:-------------------|:------------------------------------------------------|
+> | (`securityTokenParams`) | (SecurityToken)    | Mandatory                                             |
+> | `clientId`              | Int                | Mandatory                                             |
+> | `name`                  | String             | Mandatory                                             |
+> | `email`                 | String             | Mandatory                                             |
+> | `message`               | Multi-line String  | Mandatory                                             |
+> | `mobile`                | String             | Optional                                              |
+> | `subject`               | Single-line String | Optional                                              |
+> | `agentIds`              | String             | Optional                                              |
+> | `officeId` *            | Int                | * Exactly one of these IDs or String must be supplied |
+> | `listingId` *           | Int                | * Exactly one of these IDs or String must be supplied |
+> | `fusionRef` *           | String             | * Exactly one of these IDs or String must be supplied |
+> | `nomail`                | String             | Optional                                              |
+>
+> Returns
+> : Xml string (see below)
+>
+> Example
+> : `POST` to `http://website/Fusion/IncomingEnquiries/SendEnquiry`
+
+#### 6.1.3 Parameters
+
+##### 6.1.3.1 clientId
+
+- This parameter is mandatory but should only be sent in the querystring (as
+	part of securityTokenParams) and not repeated in the body of the request.
+- It must match a Client ID as setup in the Fusion system.
+- The clientId will be recorded as the “source” of the enquiry by the Fusion
+  system.
+
+##### 6.1.3.2 name
+
+- This parameter is mandatory.
+- The `name` is the full name of the Lead.
+
+##### 6.1.3.3 email
+
+- This parameter is mandatory.
+- The `email` is the email address of the Lead.
+
+##### 6.1.3.4 message
+
+- This parameter is mandatory.
+- The `message` is the body of the enquiry as submitted by the Lead.
+- The description text will be alphanumeric with no HTML encoding.
+- The description text may include `\n` or `\r\n` sequences to represent a
+  paragraph break.
+- Note that a “blank line” paragraph separator should be represented as a run of
+  2 paragraph breaks (e.g. `\n\n` or `\r\n\r\n`)
+
+##### 6.1.3.5 mobile
+
+- This parameter is optional.
+- The `mobile` is the mobile number of the lead.
+- If no mobile number is supplied by the Lead, this parameter may be omitted.
+
+##### 6.1.3.6 subject
+
+- This parameter is optional.
+- The `subject` is an optional single line of text for the enquiry.
+- If the subject is omitted, the start of the message body will be used in the
+  Fusion system in lieu of the subject.
+
+##### 6.1.3.7 agentIds
+
+- This parameter is optional.
+- The `agentIds` parameter is a comma-separated list of one or more agent ids.
+- These agent ids are the Agent(s) who are associated with this enquiry and
+  should be notified of this enquiry.
+- The `agentIds` parameter may be omitted if the enquiry is of a general nature
+  and is not related to a specific listing.
+
+##### 6.1.3.8 listingId
+
+- Exactly one of the `listingId` or `officeId` or `fusionRef` attributes must be
+  present.
+- Either the `listingId` OR the `fusionRef` should be supplied if the enquiry is
+  related to a specific listing.
+
+##### 6.1.3.9 fusionRef
+
+- Exactly one of the `listingId` or `officeId` or `fusionRef` attributes must be
+  present.
+- Either the `listingId` OR the `fusionRef` should be supplied if the enquiry is
+	related to a specific listing.
+
+##### 6.1.3.10 officeId
+
+- Exactly one of the `listingId` or `officeId` or `fusionRef` attributes must be
+  present.
+- The `officeId` should be supplied if the enquiry is of a general nature and
+  is not related to a specific listing.
+
+##### 6.1.3.11 Nomail
+
+- The `nomail` should be supplied with a value of `true` if the enquiry email to
+  the agent should not be sent (for a specific listing). The parameter is
+	optional and defaults to `false`.
+
+#### 6.1.4 Returns on Success
+
+##### 6.1.4.1 An Example
+
+	<EnquirySent/>
+
+##### 6.1.4.2 Root Node
+
+If the enquiry send was successful, an `EnquirySent` element will be returned.
+
+#### 6.1.5 Exceptions on Failure
+
+##### 6.1.5.1 An Example
+
+	<EnquiryError>
+		<Exception type="InvalidParameter" paramName="listingId" />
+	</EnquiryError>
+
+- The following method-specific exceptions may occur when these parameters are missing.
+	- Missing Parameter (name)
+	- Missing Parameter (email)
+	- Missing Parameter (message)
+	- Listing ID or Office ID or fusionRef Missing
+- The following method-specific exceptions may occur when the value passed does not match a value in our database, within the given context for the client in question:
+	- Invalid Parameter (name)
+	- Invalid Parameter (email)
+	- Invalid Parameter (message)
+	- Listing ID or Office ID or fusionRef Missing
+- The following common exceptions may occur (see Appendix for details):
+	- Invalid Client ID
+	- Invalid Security Token
+	- Security Token Expired
+	- Internal Error
