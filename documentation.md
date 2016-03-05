@@ -14,7 +14,6 @@ permalink: /docs/
 	- [1.1 Overview](#11-overview)
 	- [1.2 Architectural Overview](#12-architectural-overview)
 	- [1.3 API Versioning](#13-api-versioning)
-	- [1.3.3 API Evolution - Breaking Changes](#133-api-evolution-breaking-changes)
 - [2. Authentication](#2-authentication)
 	- [2.1 Overview](#21-overview)
 	- [2.2 Setup](#22-setup)
@@ -83,7 +82,7 @@ delete change events for all offices, agents, developments, listings and suburbs
 - Additional exception types may be added over time to the same protocol version
   number.
 
-### 1.3.3 API Evolution - Breaking Changes
+#### 1.3.3 API Evolution - Breaking Changes
 
 - If there is requirement to **change** any existing url parameter or **change**
   any attribute or element in a web method call or XML return structure, a new
