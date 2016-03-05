@@ -92,7 +92,6 @@ The Password must be kept secure at all times.
 ### 2.3 URLs
 
 - Testing: http://staging-feedstore.fusionagency.net/v1/sync/
-
 - Production: http://za-feedstore.fusionagency.net/v1/sync/
 
 All development and testing is to take place against the staging URL.
@@ -101,13 +100,10 @@ All development and testing is to take place against the staging URL.
 
 The SecurityToken consists of these 4 url parameters:
 
-- ClientID - The ClientID supplied during the Setup procedure.
-
-- TimeStamp – The current time as reported by the client’s computer as a UTC (GMT+0) date and time down to the current minute.
-
-- Salt – a 64-bit number randomly generated on the client’s PC.
-
-- Digest – a Base64 conversion of an SHA1 computed hash of the password and the above data.
+* ClientID - The ClientID supplied during the Setup procedure.
+* TimeStamp – The current time as reported by the client’s computer as a UTC (GMT+0) date and time down to the current minute.
+* Salt – a 64-bit number randomly generated on the client’s PC.
+* Digest – a Base64 conversion of an SHA1 computed hash of the password and the above data.
 
 ### 2.5 Creating the Security Token in .NET
 
