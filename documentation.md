@@ -100,10 +100,12 @@ All development and testing is to take place against the staging URL.
 
 The SecurityToken consists of these 4 url parameters:
 
-* ClientID - The ClientID supplied during the Setup procedure.
-* TimeStamp – The current time as reported by the client’s computer as a UTC (GMT+0) date and time down to the current minute.
-* Salt – a 64-bit number randomly generated on the client’s PC.
-* Digest – a Base64 conversion of an SHA1 computed hash of the password and the above data.
+| Parameter   | Description                                                                                                      |
+|:------------|:-----------------------------------------------------------------------------------------------------------------|
+| `ClientID`  | The ClientID supplied during the Setup procedure.                                                                |
+| `TimeStamp` | The current time as reported by the client’s computer as a UTC (GMT+0) date and time down to the current minute. |
+| `Salt`      | a 64-bit number randomly generated on the client’s PC.                                                           |
+| `Digest`    | a Base64 conversion of an SHA1 computed hash of the password and the above data.                                 |
 
 ### 2.5 Creating the Security Token in .NET
 
@@ -113,11 +115,11 @@ Fusion has .NET C# source code that will generate a SecurityToken and export it 
 
 The following rules describe how to generate a Security Token from first principles:
 
-- **ClientID** – this number is supplied by Fusion.
-- **TimeStamp** – generate a text string in the following format (MM, DD, HH and MM are 0-padded) and HH is in 24-hour format
+- `ClientID` – this number is supplied by Fusion.
+- `TimeStamp` – generate a text string in the following format (MM, DD, HH and MM are 0-padded) and HH is in 24-hour format
   - YYYY-MM-DD-HH-MM
-- **Salt** – generate a 64-bit number as a base-10 ASCII string.  We suggest using the computers TickCount as an easy random number
-- **Digest** – see below
+- `Salt` – generate a 64-bit number as a base-10 ASCII string.  We suggest using the computers TickCount as an easy random number
+- `Digest` – see below
 
 The Digest is calculated using the following **pseudo-code** algorithm:
 
