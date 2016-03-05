@@ -297,7 +297,7 @@ specific listing), the target Office ID should be included in the enquiry.
   it means that either the attribute will be missing, _**or**_ the attribute value
   will be an empty string.
 
-## 5. Web Methods: Synchronisation <a id="5-web-methods:-synchronisation"></a>
+## 5. Web Methods: Synchronisation <a id="5-web-methods-synchronisation"></a>
 
 ### 5.1 Request Snapshot <a id="51-request-snapshot"></a>
 
