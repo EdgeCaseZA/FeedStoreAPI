@@ -50,3 +50,42 @@ $on-laptop:        800px;
 .pull-right {
     float: right !important;
 }
+
+table {
+    margin: 1.5em 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: grey;
+
+    td, th {
+        padding: .5em .75em;
+        border: 1px solid #d1d1d2;
+    }
+}
+
+$dl-horizontal-breakpoint: 768px;
+$dl-horizontal-offset: 160px;
+
+dl {
+
+  dt {
+    font-weight: 700;
+  }
+
+  dd, dt {
+    line-height: 1.42857143;
+  }
+
+  @media (min-width: $dl-horizontal-breakpoint) {
+    dt {
+      float: left;
+      width: ($dl-horizontal-offset - 20);
+      clear: left;
+      text-align: right;
+      text-overflow: ellipsis;
+    }
+    dd {
+      margin-left: $dl-horizontal-offset;
+    }
+  }
+}
