@@ -145,14 +145,12 @@ principles:
 
 The Digest is calculated using the following **pseudo-code** algorithm:
 
-```
-KeyString = TimeStamp + “*” + Password + “*” + Salt;
-Utf8String = ConvertToUtf8( KeyString )
-ByteArray = ConvertToByteArray( Utf8String )
-Hash = SHA1Hash( ByteArray )
-Digest = Base64Encoder( Hash )
-UrlFriendlyDigest = UrlEncode( Digest )
-```
+	KeyString = TimeStamp + “*” + Password + “*” + Salt;
+	Utf8String = ConvertToUtf8( KeyString )
+	ByteArray = ConvertToByteArray( Utf8String )
+	Hash = SHA1Hash( ByteArray )
+	Digest = Base64Encoder( Hash )
+	UrlFriendlyDigest = UrlEncode( Digest )
 
 ### 2.7 Building the final URL
 
@@ -335,7 +333,7 @@ specific listing), the target Office ID should be included in the enquiry.
 
 #### 5.1.3 Parameters
 
-##### 5.1.3.1. `clientId`
+##### 5.1.3.1. clientId
 
 - This parameter is mandatory.
 - It must match a Client ID as setup in the Fusion system.
@@ -413,12 +411,12 @@ The following common exceptions may occur (see Appendix B for details):
 
 #### 5.2.3 Parameters
 
-##### 5.2.3.1 `clientId`
+##### 5.2.3.1 clientId
 
 - This parameter is mandatory.
 - It must match a Client ID as setup in the Fusion system.
 
-##### 5.2.3.2 `startTime`
+##### 5.2.3.2 startTime
 
 - This parameter is mandatory.
 - The `startTime` attribute defines the starting date-time from which events
@@ -511,12 +509,12 @@ The following common exceptions may occur (see Appendix B for details):
 
 #### 5.3.3 Parameters
 
-##### 5.3.3.1 `clientId`
+##### 5.3.3.1 clientId
 
 - This parameter is mandatory.
 - It must match a Client ID as setup in the Fusion system.
 
-##### 5.3.3.2 `listingId`
+##### 5.3.3.2 listingId
 
 - This parameter is mandatory.
 - It must match a ListingId in the Fusion system, and one that the client has
@@ -592,14 +590,187 @@ The following common exceptions may occur (see Appendix B for details):
 
 #### 5.4.3 Parameters
 
-##### 5.4.3.1 `clientId`
+##### 5.4.3.1 clientId
 
 - This parameter is optional.
-- If `commitToken` is supplied, it’s value should be a copy of the `commitToken` that
-  was returned in the previous call to `GetChanges`.  Passing this token back to
-	the Sync Store serves to inform the Sync Store that the previous set of changes
-	sent to the client have been successfully applied to its local database.  The
-	Sync Store will then return the next set of changes in the queue.
+- If `commitToken` is supplied, it’s value should be a copy of the `commitToken`
+  that was returned in the previous call to `GetChanges`.  Passing this token
+	back to the Sync Store serves to inform the Sync Store that the previous set
+	of changes sent to the client have been successfully applied to its local
+	database.  The 	Sync Store will then return the next set of changes in the
+	queue.
 - If the token is not present, the Sync Store will resend the last set of
   changes.  If this is the first time the client has called `GetChanges`, this
 	call will return the initial set of changes in the queue.
+
+#### 5.4.4 Returns on Success
+
+##### 5.4.4.1 Standard Change Events Example
+
+	<Changes clientId=”12” commitToken=”7dsg367d3n89y3”>
+
+	   <CreateOrUpdate>
+	      <Office ... />
+	   </CreateOrUpdate>
+
+	   <CreateOrUpdate>
+	      <Agent ... />
+	   </CreateOrUpdate>
+
+	   <Delete>
+	      <OfficeRef id=”528” />
+	   </Delete>
+
+	   <Delete>
+	      <ListingRef id=”955” />
+	   </Delete>
+
+	</Changes>
+
+##### 5.4.4.2 Snapshot Example
+
+	<Changes clientId=”12” commitToken=”7dsg367d3n89y3”>
+
+	   <BeginSnapshot types="Offices,Agents,Developments,Listings,AreaTree" />
+	   <Snapshot> ... </Snapshot>
+	   <Snapshot> ... </Snapshot>
+	   <Snapshot> ... </Snapshot>
+	   <EndSnapshot />
+
+	</Changes>
+
+##### 5.4.4.3 Rollback Example
+
+	<Changes clientId=”12” commitToken=”7dsg367d3n89y3”>
+
+	   <Rollback to="2012-09-05 18:45:00" />
+
+	   <CreateOrUpdate> ... </CreateOrUpdate>
+	   <CreateOrUpdate> ... </CreateOrUpdate>
+	   <CreateOrUpdate> ... </CreateOrUpdate>
+
+	   <Delete> ... </Delete>
+	   <Delete> ... </Delete>
+
+	</Changes>
+
+#### 5.4.5 Change Events
+
+##### 5.4.5.1 Changes Root Node
+
+- The `Changes` element will include the `clientId` of the request.  This will be
+  the same ID that was passed into the `GetChanges` web method call.
+- The `Changes` element will include a `commitToken`, which will be some arbitrary
+  encoded text string.
+- This `commitToken` must be passed verbatim into the next `GetChanges` call as an
+  acknowledgment that the current set of changes has been successfully applied
+	to the client’s local database, and the next set of changes can be safely
+	returned.
+- If the client calls `GetChanges`, and there are no changes in the queue, the
+  `commitToken` attribute will be missing and the `Changes` element will have no
+	child elements.  When the client receives this result, it may stop calling the
+	`GetChanges` method and await a `NotifyChangesAvailable` event.
+
+##### 5.4.5.2 CreateOrUpdate Node
+
+- The `CreateOrUpdate` node is sent under two cases:
+	- The containing object has been created
+	- The containing object has been updated
+
+- One of the following elements will appear as a child of this node (see
+  _Appendix A_ for details about these object types):
+	- `Offices`
+	- `Agents`
+	- `Listings`
+	- `Developments`
+	- `AreaTree`
+
+- With the exception of the `AreaTree`, the identity of the containing object
+  will be present as an `id` attribute on the object itself (see _Appendix A_
+	for details).
+- Since the `AreaTree` is always sent as a complete object within a single
+  `GetChanges` call, there is no need to supply an ID.  The client must update
+	its area tree to match the new data as supplied in the `AreaTree` object.
+- When the client processes this event, it should add the object if it doesn’t
+  exist in its local database, or update the object to this new state if it
+	already exists.
+
+##### 5.4.5.3 Delete Node
+
+- The `Delete` node is sent when the containing object is to be removed from the
+  client’s database.
+- One of the following elements will appear as a child of this node:
+	- `OfficeRef`
+	- `AgentRef`
+	- `ListingRef`
+	- `DevelopmentRef`
+- These Ref elements have no children and a single `id` attribute that refers to
+  the unique ID of the corresponding data object type.
+- When the client processes this event, it should remove the object from its
+  local database if it exists.
+
+##### 5.4.5.4 BeginSnapshot Node
+
+- The `BeginSnapshot` node is sent when a full snapshot of a set of objects is
+  to be sent to the client.
+- The `type` attribute denotes which object types are included in the snapshot.
+  The object types will be a comma-separated list of one or more of the following:
+	- `Offices`
+	- `Agents`
+	- `Listings`
+	- `Developments`
+	- `AreaTree`
+- The `BeginSnapshot` element will be followed by a repeating series of
+  `Snapshot` elements, and terminated with an `EndSnapshot` element.  Together
+	these three components form a “transaction”.
+- The client needs to read all Snapshot objects between the Begin and End
+  element markers.  On receipt of the `EndSnapshot`, it should compare these
+	objects against its own database, adding any missing items, updating any
+	existing items, and removing any items in its database that do not appear
+	in the set of Snapshot objects just received.  Alternately, the client may
+	choose to delete all objects in its database and replace them with the objects
+	just received in the snapshot. The effect of performing this update will fully
+	synchronise the client’s database with the Sync Store’s database.
+- If another `BeginSnapshot` element is received before an `EndSnapshot`, this
+  will indicate that the snapshot has been aborted and new snapshot started.  
+	The client should discard all snapshot items collected so far and restart the
+	collection process.
+- **NOTE**: The `BeginSnapshot` and `EndSnapshot` elements may appear across
+  multiple calls to `GetChanges` due to the size of the snapshot request!  DO
+	NOT expect all the changes to be in the same Changes element.
+
+##### 5.4.5.5 EndSnapshot Node
+
+See the `BeginSnapshot` section above for details on this element.
+
+##### 5.4.5.6 Snapshot Node
+
+- The `Snapshot` element always appears between a `BeginSnapshot` and an `EndSnapshot` element.
+- One of the following elements will appear as a child of this node (see _Appendix A_ for details about these object types):
+	- `Office`
+	- `Agent`
+	- `Listing`
+	- `Development`
+	- `AreaTree`
+
+##### 5.4.5.7 Rollback Node
+
+- The `Rollback` element indicates that the Sync Store has been “wound back” to
+  the “to” time.  The Sync Store will resend `CreateOrUpdate` and `Delete`
+	events from this “to” time in the past, up until the present time.
+- The “to” time will be represented in GMT+0 (NOT local time!).
+- This element is sent in response to the client calling the `RequestRollback`
+  method.
+- See the `RequestRollback` method for more details.
+
+#### 5.4.6 Exceptions on Failure
+
+- The following method-specific exceptions may occur (see Appendix for details):
+	- Invalid Commit Token
+	- Commit Token Expired
+- The following common exceptions may occur (see Appendix for details):
+	- Invalid Client ID
+	- Invalid Security Token
+	- Security Token Expired
+	- Internal Error
+	- Service Offline 
