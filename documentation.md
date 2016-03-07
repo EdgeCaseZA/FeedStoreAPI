@@ -1706,6 +1706,7 @@ Example
 
 Attribute "type"
 : `ListingIdOrOfficeIdOrFusionRefMissing`
+
 Description
 : Either a ListingId or a fusionRef or an OfficeId needs to be present, and neither is present in the enquiry.
 
