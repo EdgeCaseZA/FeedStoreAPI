@@ -1705,8 +1705,7 @@ Example
 #### 8.5.1 Listing ID or Office ID Missing
 
 Attribute "type"
-`: ListingIdOrOfficeIdOrFusionRefMissing
-`
+: `ListingIdOrOfficeIdOrFusionRefMissing`
 Description
 : Either a ListingId or a fusionRef or an OfficeId needs to be present, and neither is present in the enquiry.
 
