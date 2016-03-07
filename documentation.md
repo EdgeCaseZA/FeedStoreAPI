@@ -1269,10 +1269,10 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
 - CustomFeatures are optional and the node is only present in the XML when
   Custom Features are supplied by the client, and will contain a string of
   alphanumeric values for the name and value.
-- EG: <CustomFeature name="Koi Pond" value="yes"/>
+- EG: `<CustomFeature name="Koi Pond" value="yes"/>`
 - Note that value may not be an empty string, but this still indicates a feature
   that is available for the listing (as if value was = true).
-- EG: <CustomFeature name="Zen Garden" value=""/>
+- EG: `<CustomFeature name="Zen Garden" value=""/>`
 - The `publishedDateTime` will be stored in the format "YYYY-MM-DD HH:MM", where
   HH:MM is the time in 24-hour format with padded "0"s for HH and MM if the
   hour or minutes is less than 10.  The value will be returned as a UTC time

@@ -115,6 +115,10 @@ blockquote {
     font-size: 18px;
     letter-spacing: -1px;
 
+    table {
+        font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
+    }
+
     > :last-child {
         margin-bottom: 0;
     }
