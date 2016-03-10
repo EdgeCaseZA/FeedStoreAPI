@@ -10,56 +10,62 @@ permalink: /docs/
 
 <!-- TOC depthFrom:1 depthTo:3 withLinks:1 updateOnSave:0 orderedList:0 -->
 
-- [1. Introduction](#1-introduction)
-  - [1.1 Overview](#11-overview)
-  - [1.2 Architectural Overview](#12-architectural-overview)
-  - [1.3 API Versioning](#13-api-versioning)
-- [2. Authentication](#2-authentication)
-  - [2.1 Overview](#21-overview)
-  - [2.2 Setup](#22-setup)
-  - [2.3 URLs](#23-urls)
-  - [2.4 The Security Token](#24-the-security-token)
-  - [2.5 Creating the Security Token in .NET](#25-creating-the-security-token-in-net)
-  - [2.6 Creating the Security Token on Other Platforms](#26-creating-the-security-token-on-other-platforms)
-  - [2.7 Building the final URL](#27-building-the-final-url)
-  - [2.8 Verifying a Security Token](#28-verifying-a-security-token)
-- [3. Client Types](#3-client-types)
-  - [3.1 Client Web Sites](#31-client-web-sites)
-  - [3.2 Portals](#32-portals)
-- [4. API Overview](#4-api-overview)
-  - [4.1 Overview of the Synchronisation API](#41-overview-of-the-synchronisation-api)
-  - [4.2 Overview of the Enquiries API](#42-overview-of-the-enquiries-api)
-  - [4.3 Conventions Used in the Web Method Specification](#43-conventions-used-in-the-web-method-specification)
-- [5. Web Methods: Synchronisation](#5-web-methods-synchronisation)
-  - [5.1 Request Snapshot](#51-request-snapshot)
-  - [5.2 Request Rollback](#52-request-rollback)
-  - [5.3 Request Listing](#53-request-listing)
-  - [5.4 Get Changes](#54-get-changes)
-  - [5.5 Notify Changes Available](#55-notify-changes-available)
-- [6 Web Methods: Enquiries](#6-web-methods-enquiries)
-  - [6.1 Send Enquiry](#61-send-enquiry)
-- [7. APPENDIX A: SYNC OBJECT TYPES](#7-appendix-a-sync-object-types)
-  - [7.1 Agent](#71-agent)
-  - [7.2 Office](#72-office)
-  - [7.3 Development](#73-development)
-  - [7.4 Listing](#74-listing)
-  - [7.5 Area Tree](#75-area-tree)
-- [8 APPENDIX B: Exceptions](#8-appendix-b-exceptions)
-  - [8.1 Overview](#81-overview)
-  - [8.2 Common Exception Types](#82-common-exception-types)
-  - [8.3 Specific Exception Types (RequestRollback)](#83-specific-exception-types-requestrollback)
-  - [8.4 Specific Exception Types (GetChanges)](#84-specific-exception-types-getchanges)
-  - [8.5 Specific Exception Types (SendEnquiry)](#85-specific-exception-types-sendenquiry)
+	- [1. Introduction](#1-introduction)
+		- [1.1 Overview <a id="11-overview"></a>](#11-overview-a-id11-overviewa)
+		- [1.2 Architectural Overview](#12-architectural-overview)
+		- [1.3 API Versioning](#13-api-versioning)
+	- [2. Authentication](#2-authentication)
+		- [2.1 Overview](#21-overview)
+		- [2.2 Setup](#22-setup)
+		- [2.3 URLs](#23-urls)
+		- [2.4 The Security Token](#24-the-security-token)
+		- [2.5 Creating the Security Token in .NET](#25-creating-the-security-token-in-net)
+		- [2.6 Creating the Security Token on Other Platforms](#26-creating-the-security-token-on-other-platforms)
+		- [2.7 Building the final URL](#27-building-the-final-url)
+		- [2.8 Verifying a Security Token](#28-verifying-a-security-token)
+	- [3. Client Types](#3-client-types)
+		- [3.1 Client Web Sites](#31-client-web-sites)
+		- [3.2 Portals](#32-portals)
+	- [4. API Overview](#4-api-overview)
+		- [4.1 Overview of the Synchronisation API](#41-overview-of-the-synchronisation-api)
+		- [4.2 Overview of the Enquiries API](#42-overview-of-the-enquiries-api)
+		- [4.3 Conventions Used in the Web Method Specification](#43-conventions-used-in-the-web-method-specification)
+	- [5. Web Methods: Synchronisation](#5-web-methods-synchronisation)
+		- [5.1 Request Snapshot](#51-request-snapshot)
+		- [5.2 Request Rollback](#52-request-rollback)
+		- [5.3 Request Listing](#53-request-listing)
+		- [5.4 Get Changes](#54-get-changes)
+		- [5.5 Notify Changes Available](#55-notify-changes-available)
+	- [6 Web Methods: Enquiries](#6-web-methods-enquiries)
+		- [6.1 Send Enquiry](#61-send-enquiry)
+	- [7. APPENDIX A: SYNC OBJECT TYPES](#7-appendix-a-sync-object-types)
+		- [7.1 Agent](#71-agent)
+		- [7.2 Office](#72-office)
+		- [7.3 Development](#73-development)
+		- [7.4 Listing](#74-listing)
+		- [7.5 Area Tree](#75-area-tree)
+	- [8 APPENDIX B: Exceptions](#8-appendix-b-exceptions)
+		- [8.1 Overview](#81-overview)
+		- [8.2 Common Exception Types](#82-common-exception-types)
+		- [8.3 Specific Exception Types (RequestRollback)](#83-specific-exception-types-requestrollback)
+		- [8.4 Specific Exception Types (GetChanges)](#84-specific-exception-types-getchanges)
+		- [8.5 Specific Exception Types (SendEnquiry)](#85-specific-exception-types-sendenquiry)
 
 <!-- /TOC -->
 
-## 1. Introduction <a id="1-introduction"></a>
+<a id="1-introduction"></a>
+
+## 1. Introduction
+
+<a id="11-overview-a-id11-overviewa"></a>
 
 ### 1.1 Overview <a id="11-overview"></a>
 
 This document describes the API for accessing the Fusion Sync Store.
 
-### 1.2 Architectural Overview <a id="12-architectural-overview"></a>
+<a id="12-architectural-overview"></a>
+
+### 1.2 Architectural Overview
 
 The Fusion Sync Store exposes an HTTP endpoint.
 
@@ -71,7 +77,11 @@ Every client is linked to a collection of Fusion Offices.
 The client calls the Sync Store API to incrementally retrieve create, update and
 delete change events for all offices, agents, developments, listings and suburbs.
 
-### 1.3 API Versioning <a id="13-api-versioning"></a>
+<a id="13-api-versioning"></a>
+
+### 1.3 API Versioning
+
+<a id="131-current-version"></a>
 
 #### 1.3.1 Current Version
 
@@ -107,26 +117,36 @@ delete change events for all offices, agents, developments, listings and suburbs
   be allocated a period of time to transition to the new protocol, before the
   old version is discontinued.
 
-## 2. Authentication <a id="2-authentication"></a>
+<a id="2-authentication"></a>
 
-### 2.1 Overview <a id="21-overview"></a>
+## 2. Authentication
+
+<a id="21-overview"></a>
+
+### 2.1 Overview
 
 Every web method takes a mandatory SecurityToken as a parameter.  Each time a
 client calls a method, it needs to re-create this security token.
 
-### 2.2 Setup <a id="22-setup"></a>
+<a id="22-setup"></a>
+
+### 2.2 Setup
 
 Every client must request a ClientID and Password from our support team.
 The Password must be kept secure at all times.
 
-### 2.3 URLs <a id="23-urls"></a>
+<a id="23-urls"></a>
+
+### 2.3 URLs
 
 - Testing: [http://staging-feedstore.fusionagency.net/v1/sync/](http://staging-feedstore.fusionagency.net/v1/sync/)
 - Production: [http://za-feedstore.fusionagency.net/v1/sync/](http://za-feedstore.fusionagency.net/v1/sync/)
 
 All development and testing is to take place against the staging URL.
 
-### 2.4 The Security Token <a id="24-the-security-token"></a>
+<a id="24-the-security-token"></a>
+
+### 2.4 The Security Token
 
 The SecurityToken consists of these 4 url parameters:
 
@@ -137,13 +157,17 @@ The SecurityToken consists of these 4 url parameters:
 | `Salt`      | a 64-bit number randomly generated on the client's PC.                                                           |
 | `Digest`    | a Base64 conversion of an SHA1 computed hash of the password and the above data.                                 |
 
-### 2.5 Creating the Security Token in .NET <a id="25-creating-the-security-token-in-net"></a>
+<a id="25-creating-the-security-token-in-net"></a>
+
+### 2.5 Creating the Security Token in .NET
 
 Fusion has .NET C# source code that will generate a SecurityToken and export it
 in a format ready to be appended to an URL.  Contact Fusion should you wish to
 make use of this source code.
 
-### 2.6 Creating the Security Token on Other Platforms <a id="26-creating-the-security-token-on-other-platforms"></a>
+<a id="26-creating-the-security-token-on-other-platforms"></a>
+
+### 2.6 Creating the Security Token on Other Platforms
 
 The following rules describe how to generate a Security Token from first
 principles:
@@ -165,7 +189,9 @@ The Digest is calculated using the following **pseudo-code** algorithm:
     Digest = Base64Encoder( Hash )
     UrlFriendlyDigest = UrlEncode( Digest )
 
-### 2.7 Building the final URL <a id="27-building-the-final-url"></a>
+<a id="27-building-the-final-url"></a>
+
+### 2.7 Building the final URL
 
 Every Web Method call should have the security token parameters appended to it.
 
@@ -180,7 +206,9 @@ Appended to the base URL
 _Please be aware that a GET request to a method that expects a POST will return
 404 even though the endpoint exists._
 
-### 2.8 Verifying a Security Token <a id="28-verifying-a-security-token"></a>
+<a id="28-verifying-a-security-token"></a>
+
+### 2.8 Verifying a Security Token
 
 The NotifyChangesAvailable web method call (see API section later) supplies a
 Security Token on the URL.  The client needs to verify that the security token
@@ -194,9 +222,13 @@ Verifying a token is a simple process:
 - Compare the generated digest with the digest supplied in the URL call.
 - If the digests match, the token is valid.
 
-## 3. Client Types <a id="3-client-types"></a>
+<a id="3-client-types"></a>
 
-### 3.1 Client Web Sites <a id="31-client-web-sites"></a>
+## 3. Client Types
+
+<a id="31-client-web-sites"></a>
+
+### 3.1 Client Web Sites
 
 Each Fusion client has the option of using a Fusion Front-end web-site based on
 a standard Fusion template, or building a custom web site.
@@ -230,13 +262,19 @@ The parameters are defined as:
 as a handle for accessing the Sync Store.
 - The `listingId` is the Fusion listingId as returned in the `<Listing>` element.
 
-### 3.2 Portals <a id="32-portals"></a>
+<a id="32-portals"></a>
+
+### 3.2 Portals
 
 A portal client aggregates listings from a number of different Agencies and Offices.
 
-## 4. API Overview <a id="4-api-overview"></a>
+<a id="4-api-overview"></a>
 
-### 4.1 Overview of the Synchronisation API <a id="41-overview-of-the-synchronisation-api"></a>
+## 4. API Overview
+
+<a id="41-overview-of-the-synchronisation-api"></a>
+
+### 4.1 Overview of the Synchronisation API
 
 The Fusion Sync Store exposes an interface that allows a client to maintain a
 copy of the Fusion database, getting updates in an asynchronous, event-driven,
@@ -283,7 +321,9 @@ in the early morning.  While the housekeeping process is running, a number of
 the web method calls will fail with a Housekeeping In Progress exception.  If
 that happens, the client should back off and try again later.
 
-### 4.2 Overview of the Enquiries API <a id="42-overview-of-the-enquiries-api"></a>
+<a id="42-overview-of-the-enquiries-api"></a>
+
+### 4.2 Overview of the Enquiries API
 
 The Fusion Sync Store exposes an interface that allows any client to send an
 "enquiry" generated by a third party user of the client's system, into the
@@ -300,7 +340,9 @@ Fusion Reference should be included in the enquiry.
 If the enquiry is of a general nature (i.e. the enquiry is not related to a
 specific listing), the target Office ID should be included in the enquiry.
 
-### 4.3 Conventions Used in the Web Method Specification <a id="43-conventions-used-in-the-web-method-specification"></a>
+<a id="43-conventions-used-in-the-web-method-specification"></a>
+
+### 4.3 Conventions Used in the Web Method Specification
 
 - The `|` symbol defines the options that the relevant attribute can take on.  
   Only one of the options is allowed per attribute.
@@ -308,9 +350,13 @@ specific listing), the target Office ID should be included in the enquiry.
   it means that either the attribute will be missing, _**or**_ the attribute value
   will be an empty string.
 
-## 5. Web Methods: Synchronisation <a id="5-web-methods-synchronisation"></a>
+<a id="5-web-methods-synchronisation"></a>
 
-### 5.1 Request Snapshot <a id="51-request-snapshot"></a>
+## 5. Web Methods: Synchronisation
+
+<a id="51-request-snapshot"></a>
+
+### 5.1 Request Snapshot
 
 #### 5.1.1 Overview
 
@@ -378,7 +424,9 @@ The following common exceptions may occur (see [_Appendix B_][Appendix B] for de
 - Internal Error
 - Service Offline
 
-### 5.2 Request Rollback <a id="52-request-rollback"></a>
+<a id="52-request-rollback"></a>
+
+### 5.2 Request Rollback
 
 #### 5.2.1 Overview
 
@@ -482,7 +530,9 @@ The following common exceptions may occur (see [_Appendix B_][Appendix B] for de
   - Internal Error
   - Service Offline
 
-### 5.3 Request Listing <a id="53-request-listing"></a>
+<a id="53-request-listing"></a>
+
+### 5.3 Request Listing
 
 #### 5.3.1 Overview
 
@@ -555,7 +605,9 @@ The following common exceptions may occur (see [_Appendix B_][Appendix B] for de
 - Internal Error
 - Service Offline
 
-### 5.4 Get Changes <a id="54-get-changes"></a>
+<a id="54-get-changes"></a>
+
+### 5.4 Get Changes
 
 #### 5.4.1 Overview
 
@@ -788,7 +840,9 @@ See the `BeginSnapshot` section above for details on this element.
   - Internal Error
   - Service Offline 
 
-### 5.5 Notify Changes Available <a id="55-notify-changes-available"></a>
+<a id="55-notify-changes-available"></a>
+
+### 5.5 Notify Changes Available
 
 #### 5.5.1 Overview
 
@@ -851,9 +905,13 @@ See the `BeginSnapshot` section above for details on this element.
 
 The client should simply return an empty `<RequestCompleted>` XML element.
 
-## 6 Web Methods: Enquiries <a id="6-web-methods-enquiries"></a>
+<a id="6-web-methods-enquiries"></a>
 
-### 6.1 Send Enquiry <a id="61-send-enquiry"></a>
+## 6 Web Methods: Enquiries
+
+<a id="61-send-enquiry"></a>
+
+### 6.1 Send Enquiry
 
 #### 6.1.1 Overview
 
@@ -1004,9 +1062,13 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
 
 [Appendix A]: #7-appendix-a-sync-object-types
 
-## 7. APPENDIX A: SYNC OBJECT TYPES <a id="7-appendix-a-sync-object-types"></a>
+<a id="7-appendix-a-sync-object-types"></a>
 
-### 7.1 Agent <a id="71-agent"></a>
+## 7. APPENDIX A: SYNC OBJECT TYPES
+
+<a id="71-agent"></a>
+
+### 7.1 Agent
 
 #### 7.1.1 An Example
 
@@ -1041,7 +1103,9 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
   formatted with spaces after the 3rd and 6th digits.
 - The `title` and `team` attributes are not mandatory.
 
-### 7.2 Office <a id="72-office"></a>
+<a id="72-office"></a>
+
+### 7.2 Office
 
 #### 7.2.1 An Example
 
@@ -1073,7 +1137,9 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
 - An AgentRef element will be returned for each member of the office.
 - The AgentRef `id` attribute will reference a valid ID of an Agent in the data store.
 
-### 7.3 Development <a id="73-development"></a>
+<a id="73-development"></a>
+
+### 7.3 Development
 
 #### 7.3.1 An Example
 
@@ -1094,7 +1160,9 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
   relationship is captured in the Listing object as an optional reference to
   this Development object.
 
-### 7.4 Listing <a id="74-listing"></a>
+<a id="74-listing"></a>
+
+### 7.4 Listing
 
 #### 7.4.1 An Example
 
@@ -1506,7 +1574,9 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
   own document repository.  A client may NOT expose this URL directly on their site.
 - Documents may be downloaded in parallel, on a maximum of 20 threads.
 
-### 7.5 Area Tree <a id="75-area-tree"></a>
+<a id="75-area-tree"></a>
+
+### 7.5 Area Tree
 
 #### 7.5.1 An Example
 
@@ -1567,13 +1637,19 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
 
 [Appendix B]: #8-appendix-b-exceptions
 
-## 8 APPENDIX B: Exceptions <a id="8-appendix-b-exceptions"></a>
+<a id="8-appendix-b-exceptions"></a>
 
-### 8.1 Overview <a id="81-overview"></a>
+## 8 APPENDIX B: Exceptions
+
+<a id="81-overview"></a>
+
+### 8.1 Overview
 
 Any web method can return an Exception Result instead of a Success Result.  Every Exception result is a single <Exception> root element with a mandatory "type" attribute ID and optional other attributes specific to the Exception type.
 
-### 8.2 Common Exception Types <a id="82-common-exception-types"></a>
+<a id="82-common-exception-types"></a>
+
+### 8.2 Common Exception Types
 
 #### 8.2.1 Invalid Client ID
 
@@ -1652,7 +1728,9 @@ Description
 Example
 : `<Exception type="InvalidParameter" paramName="mobileNumber" />`
 
-### 8.3 Specific Exception Types (RequestRollback) <a id="83-specific-exception-types-requestrollback"></a>
+<a id="83-specific-exception-types-requestrollback"></a>
+
+### 8.3 Specific Exception Types (RequestRollback)
 
 #### 8.3.1 Invalid Start Time
 
@@ -1676,7 +1754,9 @@ Description
 Example
 : `<Exception type="NoHistoryAvailable" />`
 
-### 8.4 Specific Exception Types (GetChanges) <a id="84-specific-exception-types-getchanges"></a>
+<a id="84-specific-exception-types-getchanges"></a>
+
+### 8.4 Specific Exception Types (GetChanges)
 
 #### 8.4.1 Invalid Commit Token
 
@@ -1700,7 +1780,9 @@ Description
 Example
 : `<Exception type="CommitTokenExpired" />`
 
-### 8.5 Specific Exception Types (SendEnquiry) <a id="85-specific-exception-types-sendenquiry"></a>
+<a id="85-specific-exception-types-sendenquiry"></a>
+
+### 8.5 Specific Exception Types (SendEnquiry)
 
 #### 8.5.1 Listing ID or Office ID Missing
 
