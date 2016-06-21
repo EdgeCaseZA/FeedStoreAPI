@@ -1326,6 +1326,11 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
           <Document title="Upstairs floor Plan" url="http://documentserver/devstoreaccount1/documents/Office,1/Documents,0/doc_6.pdf"/>
        </Documents>
 
+       <SellersAndLandlords>
+         	<SellerOrLandlord name="Joe Smith" idnumber="" email="joesmith@anonymous.net" mobile="0835551234" tel="" />
+         	<SellerOrLandlord name="Jane Doe" idnumber="8205214687081" email="joesmith@anonymous.net" mobile="0835551234" tel="0217835028" />
+      </SellersAndLandlords>
+
     </Listing>
 
 ##### 7.4.1.1 Listing Node
@@ -1569,6 +1574,12 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
 - The client must download all document files and store them in the client's
   own document repository.  A client may NOT expose this URL directly on their site.
 - Documents may be downloaded in parallel, on a maximum of 20 threads.
+
+##### 7.4.1.15 SellersAndLandlords Node
+
+- The `SellersAndLandlords` node is optional and may contain one or more `SellerOrLandlord` elements – a missing or empty element means there are no Sellers or Landlords associated with this listing.
+- All attributes on the `SellerOrLandlord` node are optional, and may or may not contain a value.
+- The available attributes are : `name` `idnumber` `email` `mobile` `tel`
 
 <a id="75-area-tree" href="#">back to top</a>
 
