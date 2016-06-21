@@ -4,7 +4,7 @@ title: Documentation
 permalink: /docs/
 ---
 
-<small class="pull-right">Revision 11 -- Updated 30 July 2015</small>
+<small class="pull-right">Revision 12 -- Updated 21 June 2016</small>
 
 **TABLE OF CONTENTS**
 
