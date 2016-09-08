@@ -4,7 +4,7 @@ title: Documentation
 permalink: /docs/
 ---
 
-<small class="pull-right">Revision 12 -- Updated 21 June 2016</small>
+<small class="pull-right">Revision 13 -- Updated 08 September 2016</small>
 
 **TABLE OF CONTENTS**
 
@@ -114,6 +114,14 @@ delete change events for all offices, agents, developments, listings and suburbs
   notified ahead of time and an alternative protocol provided.  The client will
   be allocated a period of time to transition to the new protocol, before the
   old version is discontinued.
+
+#### 1.3.4 API Evolution - Non Breaking Changes
+
+- Additional property features (including commercial features) added.
+
+- Additional Listing Property Types added.
+
+- Updated schema indicating Legal Listing Property Types per Listing Zone and Listing Type.
 
 <a id="2-authentication" href="#">back to top</a>
 
@@ -1176,16 +1184,11 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
              virtualTourUrl="http://vtour.com/?id=123456" >
 
        <Type listingType="Sale|Rent"
-             listingZone="Residential|Commercial|Farm"
-             propertyType="House|Apartment|Cluster|Duplex|Simplex|GardenCottage|Land|
-                           Office|Retail|Industrial|OtherCommercial|AgriculturalHolding|
-                           GameLodge|GuestFarm|CommercialFarm|RetailAndOffices|LeisureAndHotels|
-                           HuntingLodge|Smallholding|GameFarm|LifestyleFarm|Loft|Studio|BachelorFlat|
-                           Estate|WildlifeEstate|GolfEstate|Lodge|Townhouse|GatedVillage|
-                           Duet|SectionalTitle|Shareblock|Room|Villa|Penthouse" />
+             listingZone="Residential | Commercial | Farm | Development"
+             propertyType="AgriculturalHolding | Apartment | BachelorFlat | BedAndBreakfast | Business | Cluster | CommercialAndIndustrial | CommercialFarm | CommercialProperty | Duet | Duplex | Estate | Factory | Flat | GameFarm | GameLodge | GardenCottage | GatedVillage | GolfEstate | GuestFarm | Hotel | House | HuntingLodge | Industrial | Land | LeisureAndHotels | LifestyleFarm | Lodge | Loft | Office | OtherCommercial | Penthouse | Retail | RetailAndOffices | Room | SectionalTitle | Shareblock | Simplex | Smallholding | Studio | Tourism | Townhouse | Villa | Warehouse | WildlifeEstate" />
 
-       <SaleDetails saleState="New|ForSale|PriceReduced|OfferMade|Sold"
-                    mandateType="Sole|Open|Joint|Opposition"
+       <SaleDetails saleState="New | ForSale | PriceReduced|OfferMade|Sold"
+                    mandateType="Sole | Open | Joint | Opposition"
                     mandateExpiry="2012-02-14"
                     mandateSignedDate="2015-05-01"
                     occupationDate="2015-12-01"
@@ -1195,12 +1198,12 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                     offersFrom="1700000"
                     rates"1800"
                     levy="400"
-                    waterIncluded="true|false"
+                    waterIncluded="true | false"
                     electricityIncluded="true|false"
                     distressedSale="FNB"
-                    priceSuffix="POA|SBT|VatIncl|VatExcl" />
+                    priceSuffix="POA | SBT | VatIncl | VatExcl" />
 
-       <RentDetails rentalState="ToRent|AvailableImmediately|PriceReduced|OfferMade|Leased"
+       <RentDetails rentalState="ToRent | AvailableImmediately | PriceReduced | OfferMade | Leased"
                     occupationDate="2012-03-01"
                     onMarketSince="2014-09-30"
                     multiListDate="2015-03-21"
@@ -1208,7 +1211,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                     deposit="10000"
                     waterIncluded="true|false"
                     electricityIncluded="true|false"
-                    priceSuffix="PerDay|PerWeek|PerMonth|PerM2" />
+                    priceSuffix="PerDay | PerWeek | PerMonth | PerM2" />
 
        <Address schemeNumber="10"
                 schemeName="Glochester Mews"
@@ -1220,7 +1223,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                 suburbId="34"
                 latitude="12.23234"
                 longitude="-43.87654"
-                addressHidden="true|false" />
+                addressHidden="true | false" />
 
        <Agents>
           <AgentRef id="441" />
@@ -1233,15 +1236,16 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                      numCoveredParkings="1"
                      numOpenParkings="1"
                      landArea="350"
-                     landAreaUnits="sqm|ha|ac"
+                     landAreaUnits="sqm | ha | ac"
                      floorArea="200"
-                     floorAreaUnits="sqm|ha|ac" />
+                     floorAreaUnits="sqm | ha | ac" />
 
        <SecondaryFeatures numEnsuites="3"
                           numLounges="2"
                           numDiningAreas="1"
                           numFlatlets="1"
-                          numStorys="1"
+                          numStoreys="2"
+
                           hasStudy="true"
                           hasBalcony="true"
                           hasPatio="true"
@@ -1257,7 +1261,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                           hasLaundry="true"
                           hasStorage="true"
                           hasWalkInCloset="true"
-                          hasBuiltInCupboards="true"
+                          hasBuildInCupboards="true"
                           isFurnished="true"
                           isWheelChairFriendly="true"
                           hasAircon="true"
@@ -1270,6 +1274,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                           hasAlarm="true"
                           hasScenicView="true"
                           hasSeaView="true"
+
                           hasKitchen="true"
                           hasLapa="true"
                           hasElectricFencing="true"
@@ -1284,11 +1289,28 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                           hasBorehole="true"
                           hasIrrigationSystem="true"
                           hasPaving="true"
-                          roofType="alphanumeric string"
-                          finishes="alphanumeric string"
                           hasGarden="true"
                           hasIntercom="true"
-                          hasFamilyTvRoom="true"/>
+                          hasFamilyTvRoom="true"
+                          hasCentralHeating ="true"
+                          hasReception ="true"
+                          hasConferenceRoom ="true"
+                          hasBoardRoom ="true"
+                          hasShowRoom ="true"
+                          hasPassengerLift ="true"
+                          hasFreightLift ="true"
+                          hasFireSuppression ="true"
+                          hasFireEscape ="true"
+                          hasLoadingBay ="true"
+                          hasBasement ="true"
+                          has24HourSecurity ="true"
+                          hasCCTV ="true"
+                          hasCafeteria ="true"
+                          hasStaffLounge ="true"
+                          hasBackupGenerator ="true"
+
+                          RoofType="alphanumeric string"
+                          Finishes="alphanumeric string"/>
        <CustomFeatures>
           <CustomFeature name="Alphanumeric string" value="Alphanumeric string"/>
           <CustomFeature … />
@@ -1379,13 +1401,22 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
   the remaining parts of the XML response.
 - The legal set of values for `propertyType` depends on the value of the
   `listingZone`, as defined below:
+  |SALES| |
+  |-----|-|
+  |<b>Listing Zone</b>|<b>Legal Property Types for `Sales`</b>|
+  |Development|`Apartment`, `BachelorFlat`, `Cluster`, `Duet`, `Duplex`, `Estate`, `Flat`, `GatedVillage`, `GolfEstate`, `House`, `Land`, `Lodge`, `Penthouse`, `SectionalTitle`, `Shareblock`, `Simplex`, `Studio`, `Townhouse`, `Villa`, `WildlifeEstate`|
+  |Farm|`AgriculturalHolding`, `GameFarm`, `House`, `Land`, `LifestyleFarm`, `Smallholding`|
+  |Residential|`Apartment`, `BachelorFlat`, `Cluster`, `Duet`, `Duplex`, `Estate`, `Flat`, `GatedVillage`, `GolfEstate`, `House`, `Land`, `Lodge`, `Loft`, `Penthouse`, `SectionalTitle`, `Shareblock`, `Simplex`, `Studio`, `Townhouse`, `Villa`, `WildlifeEstate`|
+  |Commercial|`BedAndBreakfast`, `Business`, `CommercialAndIndustrial`, `CommercialFarm`, `CommercialProperty`, `Factory`, `GameLodge`, `GuestFarm`, `Hotel`, `HuntingLodge`, `Industrial`, `Land`, `LeisureAndHotels`, `Office`, `OtherCommercial`, `Retail`, `RetailAndOffices`, `Tourism`, `Warehouse`|
 
-  | Listing Zone | Legal Property Types                                                                                                                                                                                                                                                   |
-  |:-------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-  | Residential  | `House` `Apartment` `Cluster` `Duplex` `Simplex` `GardenCottage` `Land` `Loft` `Studio`<small>(allows for 0 bedrooms)</small> `BachelorFlat` `Estate` `WildlifeEstate` `GolfEstate` `Lodge` `Townhouse` `GatedVillage` `Duet` `Smallholding` `SectionalTitle` `Shareblock` `Room` `Villa` `Penthouse` `Flat` |
-  | Commercial   | `Office` `Retail` `Industrial` `OtherCommercial` `Land` `GameLodge` `GuestFarm` `CommercialFarm` `RetailAndOffices` `LeisureAndHotels` `HuntingLodge` `Business` `BedAndBreakfast`                                                                                     |
-  | Farm         | `House`<small>(Farm land and a farm house)</small> `Land`<small>(Farm land only)</small> `AgriculturalHolding` `Smallholding` `GameFarm` `LifestyleFarm`                                                                                                                                                                                         |
-  | Development  | `House` `Apartment` `Cluster` `Duplex` `Simplex` `Land` `Loft` `Studio`<small>(allows for 0 bedrooms)</small> `BachelorFlat` `Estate` `WildlifeEstate` `GolfEstate` `Lodge` `Townhouse` `GatedVillage` `Duet` `Smallholding` `SectionalTitle` `Shareblock` `Room` `Villa` `Penthouse`                        |
+  |RENTALS| |
+  |-----|-|
+  |<b>Listing Zone</b>|<b>Legal Property Types for `Rentals`</b>|
+  |Development|`Apartment`, `BachelorFlat`, `Cluster`, `Duet`, `Duplex`, `Estate`, `Flat`, `GatedVillage`, `GolfEstate`, `House`, `Land`, `Lodge`, `Penthouse`, `SectionalTitle`, `Shareblock`, `Simplex`, `Studio`, `Townhouse`, `Villa`, `WildlifeEstate`|
+  |Farm|`GameFarm`, `House`, `Land`, `LifestyleFarm`, `Smallholding`|
+  |Residential|`BachelorFlat`, `Cluster`, `Duet`, `Duplex`, `Estate`, `Flat`, `GardenCottage`, `GatedVillage`, `GolfEstate`, `House`, `Land`, `Lodge`, `Loft`, `Penthouse`, `Room`, `SectionalTitle`, `Shareblock`, `Simplex`, `Studio`, `Townhouse`, `Villa`, `WildlifeEstate`|
+  |Commercial|`Business`, `CommercialAndIndustrial`, `CommercialFarm`, `CommercialProperty`, `Factory`, `GameLodge`, `GuestFarm`, `Hotel`, `HuntingLodge`, `Industrial`, `Land`, `LeisureAndHotels`, `Office`, `OtherCommercial`, `Retail`, `RetailAndOffices`, `Tourism`, `Warehouse`|
+
 
 ##### 7.4.1.3 SaleDetails Node
 
