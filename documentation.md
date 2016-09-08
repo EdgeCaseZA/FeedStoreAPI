@@ -1401,6 +1401,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
   the remaining parts of the XML response.
 - The legal set of values for `propertyType` depends on the value of the
   `listingZone`, as defined below:
+  
   |SALES| |
   |-----|-|
   |<b>Listing Zone</b>|<b>Legal Property Types for `Sales`</b>|
