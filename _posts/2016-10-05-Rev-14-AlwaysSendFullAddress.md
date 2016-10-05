@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Updated to Rev 14 - Property Types and Features"
+title:  "Updated to Rev 14 - Always send full address"
 date:   2016-10-05 09:35:00 +0200
 ---
-The [documentation](/FeedStoreAPI/docs) was updated to the latest revision: 13
+The [documentation](/FeedStoreAPI/docs) was updated to the latest revision: 14
 
 Non-breaking addition: Added functionality to always send the full listing address (if the Client and Agency flags to allow it is set) 
 
