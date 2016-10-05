@@ -1493,7 +1493,7 @@ The Fusion back office feed-client configuration allows for an indicator `Always
 If this indicator is set to `true`, the Address Node's three address attributes and the two scheme attributes will always be present.
 It is up to the client then to ensure that the address is not shown if `addressHidden` is `true`.
 
-###### 7.4.1.5.1 If Client's `AlwaysSendFullListingAddress` is `TRUE`
+###### 7.4.1.5.1 If Client and Agency's `AlwaysSendFullListingAddress` is `TRUE`
 
 - The `Address` Node is mandatory.
 - The `suburbId` is mandatory.
@@ -1518,7 +1518,7 @@ It is up to the client then to ensure that the address is not shown if `addressH
 - The `latitude` and `longitude` are optional. Either both should be present,
   or neither should be present.  The format of each should be in decimal degrees.
 
-###### 7.4.1.5.2 If Client's `AlwaysSendFullListingAddress` is `FALSE`
+###### 7.4.1.5.2 If Client and Agency's `AlwaysSendFullListingAddress` is `FALSE`
 
 - The `Address` Node is mandatory.
 - The `suburbId` is mandatory.
