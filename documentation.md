@@ -1498,7 +1498,7 @@ It is up to the client then to ensure that the address is not shown if `addressH
 - The `Address` Node is mandatory.
 - The `suburbId` is mandatory.
 - The `addressHidden` is mandatory.  The
-  three address attributes and the two scheme attributes will be always be present if available.
+  three address attributes and the two scheme attributes will always be present if available.
 - The `schemeNumber` is optional.  It is used to represent a flat number or
   complex-unit number, etc.  It will only be present if the Listing Zone is
   `Residential` or `Commercial`.
