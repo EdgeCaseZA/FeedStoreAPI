@@ -123,6 +123,13 @@ delete change events for all offices, agents, developments, listings and suburbs
 
 - Updated schema indicating Legal Listing Property Types per Listing Zone and Listing Type.
 
+#### 1.3.5 API Evolution - Non Breaking Changes
+
+- The Fusion back office feed-client configuration allows for an indicator `AlwaysSendFullListingAddress` to be set per Client per Agency. 
+If this indicator is set to `true`, the Address Node's three address attributes and the two scheme attributes will always be present.
+It is up to the client then to ensure that the address is not shown if `addressHidden` is `true`. See [7.4.1.5 Address Node](#7415-addressNode) for details.
+ 
+
 <a id="2-authentication" href="#">back to top</a>
 
 ## 2. Authentication
@@ -1478,7 +1485,40 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
   can be inferred to be false.
 - The `priceSuffix` is optional and further clarifies the `rentalPrice` field.
 
+<a id="7415-addressNode" href="#"></a>
+
 ##### 7.4.1.5 Address Node
+
+The Fusion back office feed-client configuration allows for an indicator `AlwaysSendFullListingAddress` to be set per Client per Agency. 
+If this indicator is set to `true`, the Address Node's three address attributes and the two scheme attributes will always be present.
+It is up to the client then to ensure that the address is not shown if `addressHidden` is `true`.
+
+###### 7.4.1.5.1 If Client's `AlwaysSendFullListingAddress` is `TRUE`
+
+- The `Address` Node is mandatory.
+- The `suburbId` is mandatory.
+- The `addressHidden` is mandatory.  The
+  three address attributes and the two scheme attributes will be always be present if available.
+- The `schemeNumber` is optional.  It is used to represent a flat number or
+  complex-unit number, etc.  It will only be present if the Listing Zone is
+  `Residential` or `Commercial`.
+- The `schemeName` is optional.  It is used to represent a flat name or complex
+  name, etc.  
+  It will only be present if the Listing Zone is `Residential` or `Commercial`.
+- The `streetNumber` is mandatory if present.  It will only be present if the Listing
+  Zone is `Residential` or `Commercial`.
+- The `streetName` is mandatory if present. It will only be present if the Listing
+  Zone is `Residential` or `Commercial`.
+- The `streetType` is mandatory if present. It will only be present if the Listing
+  Zone is `Residential` or `Commercial`.
+- The `farmNumber` is optional and will only be present if the Listing Zone is
+  `Farm` and the field value present. 
+- The `farmName` is mandatory if the Listing Zone is `Farm` and if it is set, else it will be
+  hidden.
+- The `latitude` and `longitude` are optional. Either both should be present,
+  or neither should be present.  The format of each should be in decimal degrees.
+
+###### 7.4.1.5.2 If Client's `AlwaysSendFullListingAddress` is `FALSE`
 
 - The `Address` Node is mandatory.
 - The `suburbId` is mandatory.
