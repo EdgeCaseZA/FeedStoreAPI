@@ -9,4 +9,4 @@ Non-breaking addition: Added functionality to always send the full listing addre
 
 - The Fusion back office feed-client configuration allows for an indicator `AlwaysSendFullListingAddress` to be set per Client per Agency. 
 If this indicator is set to `true`, the Address Node's three address attributes and the two scheme attributes will always be present.
-It is up to the client then to ensure that the address is not shown if `addressHidden` is `true`. See [7.4.1.5 Address Node](#7415-addressNode) for details.
+It is up to the client then to ensure that the address is not shown if `addressHidden` is `true`. 
