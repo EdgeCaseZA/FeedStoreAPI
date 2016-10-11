@@ -125,7 +125,7 @@ delete change events for all offices, agents, developments, listings and suburbs
 
 #### 1.3.5 API Evolution - Non Breaking Changes
 
-- The Fusion back office feed-client configuration allows for an indicator `AlwaysSendFullListingAddress` to be set per Client per Agency. 
+- The Fusion back office feed-client configuration allows for an indicator `AlwaysSendFullListingAddress` to be set per Client. 
 If this indicator is set to `true`, the Address Node's three address attributes and the two scheme attributes will always be present.
 It is up to the client then to ensure that the address is not shown if `addressHidden` is `true`. See [7.4.1.5 Address Node](#7415-addressNode) for details.
  
@@ -1489,11 +1489,11 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
 
 ##### 7.4.1.5 Address Node
 
-The Fusion back office feed-client configuration allows for an indicator `AlwaysSendFullListingAddress` to be set per Client per Agency. 
+The Fusion back office feed-client configuration allows for an indicator `AlwaysSendFullListingAddress` to be set per Client. 
 If this indicator is set to `true`, the Address Node's three address attributes and the two scheme attributes will always be present.
 It is up to the client then to ensure that the address is not shown if `addressHidden` is `true`.
 
-###### 7.4.1.5.1 If Client and Agency's `AlwaysSendFullListingAddress` is `TRUE`
+###### 7.4.1.5.1 If Client's `AlwaysSendFullListingAddress` is `TRUE`
 
 - The `Address` Node is mandatory.
 - The `suburbId` is mandatory.
@@ -1518,7 +1518,7 @@ It is up to the client then to ensure that the address is not shown if `addressH
 - The `latitude` and `longitude` are optional. Either both should be present,
   or neither should be present.  The format of each should be in decimal degrees.
 
-###### 7.4.1.5.2 If Client and Agency's `AlwaysSendFullListingAddress` is `FALSE`
+###### 7.4.1.5.2 If Client's `AlwaysSendFullListingAddress` is `FALSE`
 
 - The `Address` Node is mandatory.
 - The `suburbId` is mandatory.
