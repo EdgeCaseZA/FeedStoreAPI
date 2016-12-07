@@ -1353,6 +1353,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
        <Documents>
           <Document title="Floor plan" url="http://docserver/devstoreaccount1/documents/Office,1/Documents,0/doc_5.pdf"/>
           <Document title="Upstairs floor Plan" url="http://documentserver/devstoreaccount1/documents/Office,1/Documents,0/doc_6.pdf"/>
+          <Document title="Upstairs floor Plan" url="http://documentserver/devstoreaccount1/documents/Office,1/Documents,0/doc_12.jpeg"/>
        </Documents>
 
        <SellersAndLandlords>
@@ -1638,14 +1639,15 @@ It is up to the client then to ensure that the address is not shown if `addressH
 ##### 7.4.1.14 Documents Node
 
 - The `Documents` node is optional and may contain one or more `Document`
-  elements – a missing or empty element means there are no PDF documents
+  elements – a missing or empty element means there are no documents
   associated with this listing.
-- All Document `url` attributes will point to a PDF file that will be a maximum
+- All Document `url` attributes will point to a file that will be a maximum
   size of 20MB.
+- The document file types permitted are any of the following: `.pdf .jpg .jpeg .png .xls .xlsx .doc .docx`
 - The `Title` will provide a user friendly name for the document.
 - The client must download all document files and store them in the client's
   own document repository.  A client may NOT expose this URL directly on their site.
-- Documents may be downloaded in parallel, on a maximum of 20 threads.
+- Documents may be downloaded in parallel, over a maximum of 20 threads.
 
 ##### 7.4.1.15 SellersAndLandlords Node
 
