@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Updated to Rev 15 - Additional file types permitted in Documents node"
-date:   2017-12-07 12:30:00 +0200
+date:   2016-12-07 12:30:00 +0200
 ---
 The [documentation](/FeedStoreAPI/docs) was updated to the latest revision: 15
 
