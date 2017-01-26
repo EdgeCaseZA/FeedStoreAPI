@@ -4,7 +4,7 @@ title: Documentation
 permalink: /docs/
 ---
 
-<small class="pull-right">Revision 13 -- Updated 08 September 2016</small>
+<small class="pull-right">Revision 16 -- Updated 26 January 2017</small>
 
 **TABLE OF CONTENTS**
 
@@ -959,6 +959,10 @@ The client should simply return an empty `<RequestCompleted>` XML element.
 >
 > Example
 > : `POST` to `https://website/Fusion/IncomingEnquiries/SendEnquiry`
+>
+> `website` is
+> * `Testing`: staging.fusionagency.net
+> * `Production`: za.fusionagency.net
 
 #### 6.1.3 Parameters
 
