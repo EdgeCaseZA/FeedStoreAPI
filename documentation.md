@@ -4,7 +4,7 @@ title: Documentation
 permalink: /docs/
 ---
 
-<small class="pull-right">Revision 16 -- Updated 26 January 2017</small>
+<small class="pull-right">Revision 17 -- Updated 22 February 2017</small>
 
 **TABLE OF CONTENTS**
 
@@ -1101,7 +1101,8 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
            profilePicUrl="http://imageserver/somepath/2/pic-small.jpg"
            profilePicUrl2="http://imageserver/somepath/2/pic-high-res.jpg"
            title="Team Leader"
-           team="Uptown Patriots" />
+           team="Uptown Patriots"
+           PrivySealAgentAliasSlug="joe_s_blogs" />
 
 #### 7.1.2 Agent Node
 
@@ -1121,6 +1122,9 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
 - The `tel` and `cell` parameters are both mandatory.  Both parameters will be
   formatted with spaces after the 3rd and 6th digits.
 - The `title` and `team` attributes are not mandatory.
+- The `PrivySealAgentAliasSlug` parameter is optional and contains the second 
+  slug in the PrivySeal URL. 
+  i.e. "www.privyseal/za/this_is_the_privyseal_agent_alias_slug/eabb/1s
 
 ### 7.2 Office
 
