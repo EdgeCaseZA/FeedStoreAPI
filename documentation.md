@@ -1072,7 +1072,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
   - Invalid Parameter (name)
   - Invalid Parameter (email)
   - Invalid Parameter (message)
-  - Listing ID or Office ID or fusionRef Missing
+  - Invalid Parameter (Listing ID or Office ID or fusionRef)
 - The following common exceptions may occur (see [_Appendix B_][Appendix B] for details):
   - Invalid Client ID
   - Invalid Security Token
