@@ -4,7 +4,7 @@ title: Documentation
 permalink: /docs/
 ---
 
-<small class="pull-right">Revision 17 -- Updated 22 February 2017</small>
+<small class="pull-right">Revision 18 -- Updated 23 March 2017</small>
 
 **TABLE OF CONTENTS**
 
@@ -1102,7 +1102,8 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
            profilePicUrl2="http://imageserver/somepath/2/pic-high-res.jpg"
            title="Team Leader"
            team="Uptown Patriots"
-           PrivySealAgentAliasSlug="joe_s_blogs" />
+           PrivySealAgentAliasSlug="joe_s_blogs" 
+           allOfficeIds="127,244,801010,801011" />
 
 #### 7.1.2 Agent Node
 
@@ -1125,6 +1126,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
 - The `PrivySealAgentAliasSlug` parameter is optional and contains the second 
   slug in the PrivySeal URL. 
   i.e. "www.privyseal/za/this_is_the_privyseal_agent_alias_slug/eabb/1s
+- The `allOfficeIds` parameter is optional and contains a comma-delimited list of numerical officeIds that an agent is connected to. Note that an officeId may refer to an Office that has not yet been created. Agent objects are created before Office objects.
 
 ### 7.2 Office
 
