@@ -8,10 +8,7 @@ The [documentation](/FeedStoreAPI/docs) will soon be updated to the latest revis
 _Non-breaking change_
 - As an enhancement to the `Agent` object, we've included a new parameter titled `allOfficeIds` which will contain a comma-delimited list of officeIds that the agent is connected to.
 _example_
-```<CreateOrUpdate>
-    <Agent id="5807" firstName="Joe" surname="Smith" role="Admin" tel="021 701 9854" cell="083 417 9854" email="joesmith@somewhere.co.za" profilePicUrl="" profilePicUrl2="" title="Principal" team="A Team|Test Team" PrivySealAgentAliasSlug="" allOfficeIds="127,244,801010,801011"  />
-  </CreateOrUpdate>
-```
+```<Agent id="5807" firstName="Joe" surname="Smith" role="Admin" tel="021 701 9854" cell="083 417 9854" email="joesmith@somewhere.co.za" profilePicUrl="" profilePicUrl2="" title="Principal" team="A Team|Test Team" PrivySealAgentAliasSlug="" allOfficeIds="127,244,801010,801011"  />```
 - This represents an agent-office connection and is independent of the <Agents><AgentRef/></Agents> structure which adheres to the `show on website` flag found in Fusion.
 - Do not expect that an officeId value in the allOfficeIds attribute points to an exisitng office as it may not yet have been sent downstream - `<Agent />` objects are created before the `<Office />` objects in the feed.
 
