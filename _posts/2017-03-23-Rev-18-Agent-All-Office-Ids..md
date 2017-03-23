@@ -8,8 +8,7 @@ The [documentation](/FeedStoreAPI/docs) will soon be updated to the latest revis
 _Non-breaking change_
 - As an enhancement to the `Agent` object, we've included a new parameter titled `allOfficeIds` which will contain a comma-delimited list of officeIds that the agent is connected to.
 _example_
-```
-<CreateOrUpdate>
+```<CreateOrUpdate>
     <Agent id="5807" firstName="Joe" surname="Smith" role="Admin" tel="021 701 9854" cell="083 417 9854" email="joesmith@somewhere.co.za" profilePicUrl="" profilePicUrl2="" title="Principal" team="A Team|Test Team" PrivySealAgentAliasSlug="" allOfficeIds="127,244,801010,801011"  />
   </CreateOrUpdate>
 ```
