@@ -1233,20 +1233,11 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                     priceSuffix="PerDay | PerWeek | PerMonth | PerM2" />
 
         <HolidayRentalDetails 
-          highSeasonStartDate="2016-11-01"
-          highSeasonEndDate="2017-02-28"
-          highSeasonRate="2500"
-          midSeasonStartDate="2017-03-01"
-          midSeasonEndDate="2017-04-30"
-          midSeasonRate="1500"
-          lowSeasonStartDate="2017-09-01"
-          lowSeasonEndDate="2017-10-30"
-          lowSeasonRate="1500"
-          offSeasonStartDate="2017-05-01"
-          offSeasonEndDate="2017-08-31"
-          offSeasonRate="500"
-          corporateRate
-          priceSuffix="PerDay | PerWeek | PerMonth | PerM2" />
+                    highSeasonStartDate="2016-11-01" highSeasonEndDate="2017-02-28" highSeasonRate="2500"
+                    midSeasonStartDate="2017-03-01" midSeasonEndDate="2017-04-30" midSeasonRate="1500"
+                    lowSeasonStartDate="2017-09-01" lowSeasonEndDate="2017-10-30" lowSeasonRate="1500"
+                    offSeasonStartDate="2017-05-01" offSeasonEndDate="2017-08-31" offSeasonRate="500" 
+                    corporateRate="0" priceSuffix="PerDay | PerWeek | PerMonth | PerM2" />
 
        <Address schemeNumber="10"
                 schemeName="Glochester Mews"
