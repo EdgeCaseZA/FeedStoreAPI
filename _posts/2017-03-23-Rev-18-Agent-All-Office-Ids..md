@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "Update to Rev 18 imminent - Include All Office Ids with Agent object"
+title:  "Update to Rev 18 - Include All Office Ids with Agent object"
 date:   2017-03-23 15:00:00 +0200
 ---
-The [documentation](/FeedStoreAPI/docs) will soon be updated to the latest revision: 18
+The [documentation](/FeedStoreAPI/docs) has been updated to the latest revision: 18
+
+_This feature went live in production on 2017-04-19_
 
 _Non-breaking change_
 - As an enhancement to the `Agent` object, we've included a new parameter titled `allOfficeIds` which will contain a comma-delimited list of officeIds that the agent is connected to.

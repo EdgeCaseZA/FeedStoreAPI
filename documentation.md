@@ -4,7 +4,7 @@ title: Documentation
 permalink: /docs/
 ---
 
-<small class="pull-right">Revision 18 -- Updated 23 March 2017</small>
+<small class="pull-right">Revision 19 -- Updated 19 April 2017</small>
 
 **TABLE OF CONTENTS**
 
@@ -1232,6 +1232,22 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                     electricityIncluded="true|false"
                     priceSuffix="PerDay | PerWeek | PerMonth | PerM2" />
 
+        <HolidayRentalDetails 
+          highSeasonStartDate="2016-11-01"
+          highSeasonEndDate="2017-02-28"
+          highSeasonRate="2500"
+          midSeasonStartDate="2017-03-01"
+          midSeasonEndDate="2017-04-30"
+          midSeasonRate="1500"
+          lowSeasonStartDate="2017-09-01"
+          lowSeasonEndDate="2017-10-30"
+          lowSeasonRate="1500"
+          offSeasonStartDate="2017-05-01"
+          offSeasonEndDate="2017-08-31"
+          offSeasonRate="500"
+          corporateRate
+          priceSuffix="PerDay | PerWeek | PerMonth | PerM2" />
+
        <Address schemeNumber="10"
                 schemeName="Glochester Mews"
                 streetNumber="55"
@@ -1264,6 +1280,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                           numDiningAreas="1"
                           numFlatlets="1"
                           numStoreys="2"
+                          numPeopleSleeps="6"
 
                           hasStudy="true"
                           hasBalcony="true"
@@ -1497,6 +1514,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
   included in the `rentalPrice`.  If this attribute is not present, the state
   can be inferred to be false.
 - The `priceSuffix` is optional and further clarifies the `rentalPrice` field.
+- The `isHolidayRental` boolean is optional and denotes whether the listing is a holiday rental or not. The absence infers not.
 
 <a id="7415-addressNode" href="#"></a>
 
@@ -1666,6 +1684,33 @@ It is up to the client then to ensure that the address is not shown if `addressH
 - The `SellersAndLandlords` node is optional and may contain one or more `SellerOrLandlord` elements – a missing or empty element means there are no Sellers or Landlords associated with this listing.
 - All attributes on the `SellerOrLandlord` node are optional, and may or may not contain a value.
 - The available attributes are : `name` `idnumber` `email` `mobile` `tel`
+
+##### 7.4.1.16 HolidayRentalDetails Node
+
+- The `HolidayRentalDetails` node is mandatory if the `PropertyType` is `Rent` and the `isHolidayRental` attribute is "true"
+  (else it will not be present).
+- The `highSeasonRate` is mandatory and in Rands without the currency symbol. If no rate was supplied the value will be 0.
+- The `highSeasonStartDate` is optional. It is in the format YYYY-MM-DD with
+  padded "0"s for MM and DD if the month or day is less than 10.
+- The `highSeasonEndDate` is optional. It is in the format YYYY-MM-DD with
+  padded "0"s for MM and DD if the month or day is less than 10.
+- The `midSeasonRate` is mandatory and in Rands without the currency symbol. If no rate was supplied the value will be 0.
+- The `midSeasonStartDate` is optional. It is in the format YYYY-MM-DD with
+  padded "0"s for MM and DD if the month or day is less than 10.
+- The `midSeasonEndDate` is optional. It is in the format YYYY-MM-DD with
+  padded "0"s for MM and DD if the month or day is less than 10.
+- The `lowSeasonRate` is mandatory and in Rands without the currency symbol. If no rate was supplied the value will be 0.
+- The `lowSeasonStartDate` is optional. It is in the format YYYY-MM-DD with
+  padded "0"s for MM and DD if the month or day is less than 10.
+- The `lowSeasonEndDate` is optional. It is in the format YYYY-MM-DD with
+  padded "0"s for MM and DD if the month or day is less than 10.
+- The `offSeasonRate` is mandatory and in Rands without the currency symbol. If no rate was supplied the value will be 0.
+- The `offSeasonStartDate` is optional. It is in the format YYYY-MM-DD with
+  padded "0"s for MM and DD if the month or day is less than 10.
+- The `offSeasonEndDate` is optional. It is in the format YYYY-MM-DD with
+  padded "0"s for MM and DD if the month or day is less than 10.
+- The `corporateRate` is mandatory and in Rands without the currency symbol. If no rate was supplied the value will be 0.
+- The `priceSuffix` is optional and further clarifies the _seasonal rates_ fields.
 
 <a id="75-area-tree" href="#">back to top</a>
 
