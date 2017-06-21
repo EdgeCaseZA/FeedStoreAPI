@@ -1933,3 +1933,17 @@ Description
 
 Example
 : `<Exception type="MissingParameter" paramName="officeId" />`
+
+#### 8.5.3 Duplicate Enquiry
+
+Attribute "type"
+: `DuplicateEnquiry`
+
+Description
+: Params match and existing enquiry (officeID, message, name).
+
+Message
+: Duplicate enquiry detected - please don't spam.
+
+Example
+: `<Exception type="DuplicateEnquiry" description="Params match and existing enquiry (officeID, message, name)." message="Duplicate enquiry detected - please don't spam." />`
