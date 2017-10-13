@@ -1122,7 +1122,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
   empty string.
 - The `tel` and `cell` parameters are both mandatory.  Both parameters will be
   formatted with spaces after the 3rd and 6th digits.
-- The `title` and `team` attributes are not mandatory.
+- The `title` and `team` attributes are not mandatory. _Note that as of `Rev 20` the `title` attribute also appears on the `Office.AgentRef` node._
 - The `PrivySealAgentAliasSlug` parameter is optional and contains the second 
   slug in the PrivySeal URL. 
   i.e. "www.privyseal/za/this_is_the_privyseal_agent_alias_slug/eabb/1s
@@ -1141,9 +1141,9 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
             email="dnorth@remax.co.za">
 
        <Agents>
-          <AgentRef id="123"/>
-          <AgentRef id="432"/>
-          <AgentRef id="562"/>
+          <AgentRef id="123" title=""/>
+          <AgentRef id="432" title="Agent"/>
+          <AgentRef id="562" title="Prinicpal"/>
        </Agents>
 
     </Office>
@@ -1159,6 +1159,7 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
 
 - An AgentRef element will be returned for each member of the office.
 - The AgentRef `id` attribute will reference a valid ID of an Agent in the data store.
+- The AgentRef `title` attribute will reference a user title for the Agent in that office, if present.
 
 <a id="73-development" href="#">back to top</a>
 
