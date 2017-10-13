@@ -15,6 +15,7 @@ _This feature is not currently in production but available to test on our stagin
 The list of `AgentRefs` for an office will now contain an optional `title` attribute that contains the Agent title for *THAT* specific office.
 
 The attribute may contain a title or an empty string.
+
 _Please note that the `title` attribute will still be passed on the *Agent* record, but in cases where the agent is in multiple offices, it would be best to override that value with the one for the office concerned._
 
 Listing Enquiries
