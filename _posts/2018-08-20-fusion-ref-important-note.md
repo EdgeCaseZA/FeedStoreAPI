@@ -12,8 +12,4 @@ The listing `id` attribute will *always* be unique and should be used as the uni
 
 _The API documentation has been updated to reflect the above_
 
-Section 7.4.1.1 - Listing Node
-
-```The `fusionRef` is an combination of 4 alphanumeric characters following by a hyphen and then 4 numbers. ABCD-0001. It should NOT be considered unique. Use the `id` field to uniquely identify the listing.
-
-The agencyRef could be an empty string, or any combination of alphanumeric and symbolic characters. It should NOT be considered unique. Use the `id` field to uniquely identify the listing.```
+_See Section 7.4.1.1 - Listing Node_
