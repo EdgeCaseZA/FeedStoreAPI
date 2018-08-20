@@ -8,6 +8,8 @@ Please be aware that the `feedRef` attribute should *never* be used as the prima
 
 The `feedRef` is a _web-friendly_ reference number and is not gauranteed to be unique at a system-wide level.
 
+The `agencyRef` is an internal reference number from the agency and Fusion does no validation on it to determine if it's unique or not.
+
 The listing `id` attribute will *always* be unique and should be used as the unique identifier when referencing any listing that has come down the feed from Fusion.
 
 _The API documentation has been updated to reflect the above_
