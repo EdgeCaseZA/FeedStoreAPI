@@ -1389,8 +1389,9 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
   section)
 - The `id` is an integer ID representing the Listing.  This ID will be unique
   across all Listings in the Fusion system.
+- The `fusionRef` is an combination of 4 alphanumeric characters following by a hyphen and then 4 numbers. ABCD-0001. It should NOT be considered unique. Use the `id` field to uniquely identify the listing.
 - The agencyRef could be an empty string, or any combination of alphanumeric and
-  symbolic characters.
+  symbolic characters. It should NOT be considered unique. Use the `id` field to uniquely identify the listing.
 - The `featured` is optional.  If true it indicates that this listing has been
   marked as a "featured listing".
 - CustomFeatures are optional and the node is only present in the XML when

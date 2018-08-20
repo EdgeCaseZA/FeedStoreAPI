@@ -1,15 +1,11 @@
 ---
 layout: post
-title:  "Updated to Rev 21 - Agent User Titles (available for testing on staging server"
+title:  "Updated to Rev 21 - Agent User Titles"
 date:   2017-10-13 08:00:00 +0200
 ---
 The [documentation](/FeedStoreAPI/docs) was updated to the latest revision: 21
 
 Non-breaking change: An optional `title` attribute has been added to the list of `<AgentRefs>` for an Office. This title should be preferred to the one on the `Agent` record i cases where the agent appears in more than one office.
-
-_This feature is not currently in production but available to test on our staging server:_
-
-[https://staging-feedstore.fusionagency.net/v1/sync/](https://staging-feedstore.fusionagency.net/v1/sync/)
 
 # Agent Titles
 The list of `AgentRefs` for an office will now contain an optional `title` attribute that contains the Agent title for *THAT* specific office.
