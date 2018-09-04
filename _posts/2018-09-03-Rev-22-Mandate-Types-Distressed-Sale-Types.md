@@ -5,7 +5,7 @@ date:   2018-09-03 22:00:00 +0200
 ---
 The [documentation](/FeedStoreAPI/docs) was updated to the latest revision: 22
 
-Non-breaking change: Additional and `distressed sale organisations` added.
+Non-breaking change: Additional organisations added to the `distressedSale` attribute.
 
 # Distressed Sale Organisations
 New financial organisations dealing with distressed sales have been added.
