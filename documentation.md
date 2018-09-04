@@ -1482,6 +1482,8 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
 	| `FNB`                        | FNB Quick Sell Program        |
 	| `Standard`                   | Standard Bank Distressed Sale |
 	| `Nedbank`                    | Nedbank Assisted Sale         |
+  | `ABSA`                       | ABSA Distressed Sale          |
+  | `SAH`                        | SA Homeloans Distressed Sale  |
 
 - The `priceSuffix` is optional and further clarifies the `sellingPrice` field.
 
