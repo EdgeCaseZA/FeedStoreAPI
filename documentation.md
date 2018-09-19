@@ -1337,7 +1337,10 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                           hasBackupGenerator ="true"
 
                           RoofType="alphanumeric string"
-                          Finishes="alphanumeric string"/>
+                          Finishes="alphanumeric string"
+                          
+                          SmokingAllowed = "true"
+                          />
        <CustomFeatures>
           <CustomFeature name="Alphanumeric string" value="Alphanumeric string"/>
           <CustomFeature … />
