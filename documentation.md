@@ -1256,8 +1256,8 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
           <AgentRef id="755" />
        </Agents>
 
-       <MainFeatures numBedrooms="3"
-                     numBathrooms="2"
+       <MainFeatures numBedrooms="3.5"
+                     numBathrooms="2.5"
                      numGarages="2"
                      numCoveredParkings="1"
                      numOpenParkings="1"
@@ -1585,7 +1585,7 @@ It is up to the client then to ensure that the address is not shown if `addressH
 
 ##### 7.4.1.7 Main Features Node
 
-- The following attributes are mandatory: `numBedrooms`, `numBathrooms`.
+- The following attributes are mandatory: `numBedrooms`, `numBathrooms`. Please note that the type is a `double` and may contain decimal points. IE: `2.5` bathrooms.
 - All other attributes are optional.
 - If an attribute is not present, its value can be assumed to be 0.
 - The Units fields represent: `sqm` (Square Metres), `ha` (Hectares) and `ac`
