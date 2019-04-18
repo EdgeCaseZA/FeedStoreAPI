@@ -1233,6 +1233,16 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
                     electricityIncluded="true|false"
                     priceSuffix="PerDay | PerWeek | PerMonth | PerM2" />
 
+       <CommercialListingDetails leaseType="PercentageLease | NetLease | DoubleNetLease | TripleNetLease | FullyServiced | Lease" 
+                    buildingGrade="P | AAA | A | B | C" 
+                    powerAvailability="SinglePhase | ThreePhase" 
+                    grossRentalPerMonth="25000" 
+                    netRentalPerMonth="20000" 
+                    escalation="7.5" 
+                    zoning="Mixed Use" 
+                    underCoverParkingBayCostPerMonth="250" 
+                    openParkingBayCostPerMonth="100" />
+
         <HolidayRentalDetails highSeasonStartDate="2016-11-01" highSeasonEndDate="2017-02-28" highSeasonRate="2500"
                     midSeasonStartDate="2017-03-01" midSeasonEndDate="2017-04-30" midSeasonRate="1500"
                     lowSeasonStartDate="2017-09-01" lowSeasonEndDate="2017-10-30" lowSeasonRate="1500"
@@ -1345,6 +1355,22 @@ If the enquiry send was successful, an `EnquirySent` element will be returned.
           <CustomFeature name="Alphanumeric string" value="Alphanumeric string"/>
           <CustomFeature … />
        </CustomFeatures>
+
+       <CommercialFeatures numDockLevellers="4" 
+                          heightOfDockLevellers="3.60" 
+                          numRollerShutterDoors="2" 
+                          heightOfRollerShutterDoors="2.80" 
+                          heightOfRoof="4.00" 
+                          numBoardrooms="2" 
+                          boardRoomsDescription="Luxurious, fully kitted out" 
+                          grossLettableArea="1500" 
+                          numFloors="5" 
+                          retailSpace="1080.00" 
+                          mezzanineFloor="500.00" 
+                          IsStandaloneBuilding="true" 
+                          HasBackupWater="true" 
+                          IsGreenBuilding="true" 
+                          IsMultiTenanted="true" />
 
        <Photos>
           <Photo url="http://imageserver/somepath/pic1.jpg" />
@@ -1710,6 +1736,33 @@ It is up to the client then to ensure that the address is not shown if `addressH
 - The `priceSuffix` is optional and further clarifies the _seasonal rates_ fields.
 
 <a id="75-area-tree" href="#">back to top</a>
+
+##### 7.4.1.17 CommercialListingDetails Node
+
+- The `CommercialListingDetails` node is optional and can be present for both `Sale` and `Rent` `PropertyType`
+  (else it will not be present).
+- The `leaseType` is optional, but if present will contain one of the following enum values `PercentageLease`, `NetLease`, `DoubleNetLease`, `TripleNetLease`, `FullyServiced`, `Lease`
+- The `buildingGrade` is optional, but if present will contain one of the following enum values `P`, `AAA`, `A`, `B`, `C`
+- The `powerAvailability` is optional, but if present will be either `SinglePhase` or `ThreePhase` 
+- The `grossRentalPerMonth` is optional.
+- The `netRentalPerMonth` is optional.
+- The `escalation` is optional and meant to convey an annual rental escalation in percentage value.
+- The `zoning` is optional and will be a string value or description. Can be anything.
+- The `underCoverParkingBayCostPerMonth` is optional and will represent the cost of a single under cover parking bay per month or batch cost for x number of parking bays.
+- The `openParkingBayCostPerMonth` is optional and will represent the cost of a single open cover parking bay per month or batch cost for x number of parking bays.
+
+##### 7.4.1.18 CommercialFeatures Node
+
+- The `CommercialFeatures` node is optional and can be present for both `Sale` and `Rent` `PropertyType`
+  (else it will not be present).
+- All attributes are optional.
+- If there are no commercial listing features, the CommercialFeatures node will not be
+  present.
+- If an attribute is not present, its value can be assumed to be 0 (for a number)
+  or false (for a flag).
+- If the entire node (element) is not present, it should be understood that any previous values should be cleared.
+
+<a id="7415-addressNode" href="#"></a>
 
 ### 7.5 Area Tree
 
