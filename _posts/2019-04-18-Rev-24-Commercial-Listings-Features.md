@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Updated to Rev 24 - New Features Pertainging To Commercial Listings"
+title:  "Updated to Rev 24 - New Commercial Listing Features"
 date:   2019-04-18 13:00:00 +0200
 ---
 The [documentation](/FeedStoreAPI/docs) has been updated to the latest revision: 24
