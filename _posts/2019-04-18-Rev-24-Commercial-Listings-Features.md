@@ -37,16 +37,15 @@ The following additonal details is now available across 2 x new elements:
 - Is Multi Tenanted
 
 1. CommercialListingDetails element (optional)
-   This element is optional and will only appear in the XML package if any of it's attributes have values. In the event that the element has appeared in a previous snapshot, but not in subsequent snapshots, then it should be understood that those attributes are no longer applicable on the listing and can be cleared from your local store.
+This element is optional and will only appear in the XML data if any of it's attributes have values. In the event that the element has appeared in a previous snapshot, but not in subsequent updates, then it should be understood that those attributes are no longer applicable on the listing and can be cleared from your local store.
 
 ```
 <CommercialListingDetails leaseType="DoubleNetLease" buildingGrade="AAA" powerAvailability="ThreePhase" grossRentalPerMonth="25000" netRentalPerMonth="20000" escalation="8" zoning="Mixed Use" underCoverParkingBayCostPerMonth="250" openParkingBayCostPerMonth="100" />
 ```
 
 
-
-1. CommercialFeatures element (optional)
-This element is optional and will only appear in the XML package if any of it's attributes have values. In the event that the element has appeared in a previous snapshot, but not in subsequent snapshots, then it should be understood that those attributes are no longer applicable on the listing and can be cleared from your local store.
+2. CommercialFeatures element (optional)
+This element is optional and will only appear in the XML data if any of it's attributes have values. In the event that the element has appeared in a previous snapshot, but not in subsequent updates, then it should be understood that those attributes are no longer applicable on the listing and can be cleared from your local store.
 
 ```
 <CommercialFeatures numDockLevellers="4" heightOfDockLevellers="3.60" numRollerShutterDoors="2" heightOfRollerShutterDoors="2.80" heightOfRoof="4.00" numBoardrooms="2" boardRoomsDescription="Luxurious, fully kitted out" grossLettableArea="1500" numFloors="5" retailSpace="1080.00" mezzanineFloor="500.00" IsStandaloneBuilding="true" HasBackupWater="true" IsGreenBuilding="true" IsMultiTenanted="true" />
