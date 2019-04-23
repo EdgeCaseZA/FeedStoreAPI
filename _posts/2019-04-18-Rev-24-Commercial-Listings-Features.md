@@ -36,7 +36,7 @@ The following additonal details is now available across 2 x new elements:
 - Is Green Building
 - Is Multi Tenanted
 
-1. CommercialListingDetails element (optional)
+### CommercialListingDetails element (optional)
    
 This element is optional and will only appear in the XML data if any of it's attributes have values. In the event that the element has appeared in a previous snapshot, but not in subsequent updates, then it should be understood that those attributes are no longer applicable on the listing and can be cleared from your local store.
 
@@ -45,7 +45,7 @@ This element is optional and will only appear in the XML data if any of it's att
 ```
 
 
-2. CommercialFeatures element (optional)
+### CommercialFeatures element (optional)
    
 This element is optional and will only appear in the XML data if any of it's attributes have values. In the event that the element has appeared in a previous snapshot, but not in subsequent updates, then it should be understood that those attributes are no longer applicable on the listing and can be cleared from your local store.
 
