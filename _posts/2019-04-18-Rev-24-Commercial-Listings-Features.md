@@ -5,7 +5,7 @@ date:   2019-04-18 13:00:00 +0200
 ---
 The [documentation](/FeedStoreAPI/docs) has been updated to the latest revision: 24
 
-Non-breaking change: Additional listing information pertaining to Commercial Listings (Sales & Rentals) has been added to the XML snapshot where applicable.
+**Non-breaking change**: Additional listing information pertaining to Commercial Listings (Sales & Rentals) has been added to the XML snapshot where applicable.
 
 *COMING IN THE WEEK OF 22 - 26 APRIL*
 
